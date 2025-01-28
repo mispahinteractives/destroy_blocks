@@ -31,12 +31,6 @@ export default class Preload extends Phaser.Scene {
     preload() {
         // Images
         this.load.image('bg', 'assets/bg.png');
-        this.load.image('hand', 'assets/hand.png');
-        this.load.image('bg_endcard', 'assets/bg_endcard.png');
-        this.load.image('line', 'assets/line.png');
-        this.load.image('screen01_top_image', 'assets/screen01_top_image.png');
-        this.load.image('Header_without _txt', 'assets/Header_without _txt.png');
-        this.load.image('game_bg', 'assets/game_bg.png');
         this.load.atlas('sheet', 'assets/sheet.png', 'assets/sheet.json');
 
         this.load.script('webfont', 'lib/webfont.js');

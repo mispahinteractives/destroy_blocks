@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>4</int>
         <key>texturePackerVersion</key>
-        <string>5.4.0</string>
+        <string>5.5.0</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -181,7 +181,8 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">source/Button.png</key>
+            <key type="filename">source/blue.png</key>
+            <key type="filename">source/orange.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -190,174 +191,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>176,35,351,70</rect>
+                <rect>37,37,73,73</rect>
                 <key>scale9Paddings</key>
-                <rect>176,35,351,70</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">source/arrow_left.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>16,16,32,33</rect>
-                <key>scale9Paddings</key>
-                <rect>16,16,32,33</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">source/arrow_right.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>16,16,31,32</rect>
-                <key>scale9Paddings</key>
-                <rect>16,16,31,32</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">source/elipse.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>34,34,68,68</rect>
-                <key>scale9Paddings</key>
-                <rect>34,34,68,68</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">source/fries.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>41,52,83,103</rect>
-                <key>scale9Paddings</key>
-                <rect>41,52,83,103</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">source/pick_items/burger.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>45,44,89,89</rect>
-                <key>scale9Paddings</key>
-                <rect>45,44,89,89</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">source/pick_items/hot_dog.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>56,50,111,100</rect>
-                <key>scale9Paddings</key>
-                <rect>56,50,111,100</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">source/pick_items/nachos.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>52,47,103,95</rect>
-                <key>scale9Paddings</key>
-                <rect>52,47,103,95</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">source/pick_items/pan_01.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>128,86,255,171</rect>
-                <key>scale9Paddings</key>
-                <rect>128,86,255,171</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">source/pick_items/pan_front.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>127,55,255,109</rect>
-                <key>scale9Paddings</key>
-                <rect>127,55,255,109</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">source/pick_items/pepsi_can.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>58,88,115,177</rect>
-                <key>scale9Paddings</key>
-                <rect>58,88,115,177</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">source/pick_items/pizza.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>57,49,113,97</rect>
-                <key>scale9Paddings</key>
-                <rect>57,49,113,97</rect>
+                <rect>37,37,73,73</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
