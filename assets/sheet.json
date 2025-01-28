@@ -1,0 +1,108 @@
+{"frames": [
+
+{
+	"filename": "arrow_left",
+	"frame": {"x":234,"y":491,"w":63,"h":65},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":63,"h":65},
+	"sourceSize": {"w":64,"h":65}
+},
+{
+	"filename": "arrow_right",
+	"frame": {"x":300,"y":491,"w":62,"h":64},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":62,"h":64},
+	"sourceSize": {"w":63,"h":64}
+},
+{
+	"filename": "Button",
+	"frame": {"x":2,"y":2,"w":702,"h":140},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":702,"h":140},
+	"sourceSize": {"w":702,"h":140}
+},
+{
+	"filename": "elipse",
+	"frame": {"x":746,"y":593,"w":136,"h":136},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":136,"h":136},
+	"sourceSize": {"w":136,"h":136}
+},
+{
+	"filename": "fries",
+	"frame": {"x":516,"y":323,"w":165,"h":206},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":165,"h":206},
+	"sourceSize": {"w":165,"h":206}
+},
+{
+	"filename": "pick_items/burger",
+	"frame": {"x":516,"y":145,"w":178,"h":175},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":175},
+	"sourceSize": {"w":178,"h":177}
+},
+{
+	"filename": "pick_items/hot_dog",
+	"frame": {"x":697,"y":193,"w":223,"h":200},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":223,"h":200},
+	"sourceSize": {"w":223,"h":200}
+},
+{
+	"filename": "pick_items/nachos",
+	"frame": {"x":707,"y":2,"w":205,"h":188},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":1,"w":205,"h":188},
+	"sourceSize": {"w":206,"h":189}
+},
+{
+	"filename": "pick_items/pan_01",
+	"frame": {"x":2,"y":145,"w":511,"h":343},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":511,"h":343},
+	"sourceSize": {"w":511,"h":343}
+},
+{
+	"filename": "pick_items/pan_front",
+	"frame": {"x":234,"y":593,"w":509,"h":219},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":509,"h":219},
+	"sourceSize": {"w":509,"h":219}
+},
+{
+	"filename": "pick_items/pepsi_can",
+	"frame": {"x":2,"y":491,"w":229,"h":352},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":229,"h":352},
+	"sourceSize": {"w":231,"h":353}
+},
+{
+	"filename": "pick_items/pizza",
+	"frame": {"x":684,"y":396,"w":226,"h":194},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":226,"h":194},
+	"sourceSize": {"w":226,"h":194}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "sheet.png",
+	"format": "RGBA8888",
+	"size": {"w":922,"h":845},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:815051a13cc38a94def6bdcfdf9c55be:3fc259f329ffc534e96b7fd9e083d4c1:9c44ecd7e9a522007eaff2949095bc1d$"
+}
+}
