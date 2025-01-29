@@ -29,13 +29,14 @@ export class GamePlay extends Phaser.GameObjects.Container {
 
         this.createBlocks();
         this.createBigCircle();
+        this.createLine();
 
-        this.scoreText = this.scene.add.text(-170, 400, `Score: ${this.score}`, {
+        this.scoreText = this.scene.add.text(-230, 340, this.score, {
             fontFamily: "Arial",
             fontSize: "40px",
             color: "#ffffff",
         })
-        this.scoreText.setOrigin(0.5, 0.5);
+        this.scoreText.setOrigin(0, 0.5);
         this.add(this.scoreText);
 
         this.visible = false;
@@ -94,7 +95,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
 
         this.blocksArr.push(block);
 
-        if (this.blocksArr[0].y >= 220) {
+        if (this.blocksArr[0].y >= 210) {
             if (this.blockLoop) {
                 this.blockLoop.remove();
             }
@@ -133,6 +134,20 @@ export class GamePlay extends Phaser.GameObjects.Container {
         });
     }
 
+    createLine() {
+        const centerX = -this.blockWidth / 2;
+        const centerY = 300;
+        const lineRadius = 3;
+
+        let fill = this.scene.add.graphics();
+        fill.fillStyle(this.colors[0], 1);
+        fill.fillRoundedRect(0, 0, this.blockWidth, 7, lineRadius);
+        this.add(fill);
+        fill.x = centerX;
+        fill.y = centerY;
+
+    }
+
     checkCollisions(circle1) {
         if (this.blocksArr.length === 0) return;
         this.blocksArr.forEach((block) => {
@@ -143,7 +158,6 @@ export class GamePlay extends Phaser.GameObjects.Container {
                 this.circleArr = this.circleArr.filter((c) => c !== circle);
                 circle1.tween.stop();
                 circle1.destroy();
-                console.log(circle1.colorType, block.colorType);
                 this.handleCircleBlockCollision(circle1, block)
             }
         });
@@ -151,8 +165,10 @@ export class GamePlay extends Phaser.GameObjects.Container {
 
     handleCircleBlockCollision(circle, block) {
         if (this.largeCircleSprite.type == block.colorType) {
+            this.createCollisionEffect(block, block.x, block.y, block.colorType);
             this.circleArr = this.circleArr.filter((c) => c !== circle);
             this.blocksArr = this.blocksArr.filter((b) => b !== block);
+
             if (circle.tween) {
                 circle.tween.stop();
             }
@@ -161,8 +177,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
             block.destroy();
 
             this.score++;
-            console.log(`Score: ${this.score}`);
-            this.scoreText.setText(`Score: ${this.score}`);
+            this.scoreText.setText(this.score);
         } else {
             this.circleArr = this.circleArr.filter((c) => c !== circle);
             if (circle.tween) {
@@ -172,9 +187,26 @@ export class GamePlay extends Phaser.GameObjects.Container {
         }
     }
 
+    createCollisionEffect(block, x, y, colorType) {
+        const emitZone1 = { type: 'random', source: new Phaser.Geom.Rectangle(block.x, block.y, this.blockWidth, this.blockHeight), quantity: 25 };
+        const emitter = this.scene.add.particles(0, 0, colorType, {
+            speed: 24,
+            lifespan: 250,
+            quantity: 25,
+            scale: { start: 0.1, end: 0 },
+            emitZone: emitZone1,
+            duration: 100,
+            emitting: false
+        });
+        this.add(emitter)
+
+        emitter.start(100);
+    }
+
+
     createBigCircle() {
 
-        this.largeCircleSprite = this.scene.add.sprite(0, 400, "sheet", "orange");
+        this.largeCircleSprite = this.scene.add.sprite(0, 395, "sheet", "orange");
         this.largeCircleSprite.setOrigin(0.5);
         this.add(this.largeCircleSprite);
 
