@@ -19,11 +19,11 @@ export class GamePlay extends Phaser.GameObjects.Container {
         this.colors = [0x00ffff, 0xfd752b];
         this.colorsType = ["blue", "orange"];
         this.blockWidth = 470;
-        this.blockHeight = 40;
-        this.blockSpacing = 20;
-        this.blockSpeed = 3000;
-        this.blockCount = 1;
+        this.blockHeight = 50;
+        this.blockSpacing = -40;
+        this.blockSpeed = 1000;
         this.score = 0;
+
         this.currentColor = this.colors[1];
         this.currentColorType = this.colorsType[1];
 
@@ -47,7 +47,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
         this.visible = true;
 
         this.blockLoop = this.scene.time.addEvent({
-            delay: this.blockSpacing,
+            delay: this.blockSpeed,
             callback: this.createBlocks,
             callbackScope: this,
             loop: true,
@@ -63,61 +63,47 @@ export class GamePlay extends Phaser.GameObjects.Container {
 
     createBlocks() {
         if (this.gameOver) return;
-        this.blockCount++;
 
         const colorIndex = Math.floor(Math.random() * this.colors.length);
         const color = this.colors[colorIndex];
         const colorType = this.colorsType[colorIndex];
-        const startY = -420;
-        const toY = 250;
-        const speed = 200;
+        const radius = 20;
 
         const x = -this.blockWidth / 2;
-        const y = startY - (this.blockHeight + this.blockSpacing) * (this.blockCount - 1);
+        let y;
 
-        const distance = Math.abs(toY - y);
-        const duration = (distance / speed) * this.blockSpeed;
+        if (this.blocksArr.length > 0) {
+            const lastBlock = this.blocksArr[this.blocksArr.length - 1];
+            y = lastBlock.y - (this.blockHeight + this.blockSpacing);
+        } else {
+            y = -460;
+        }
+
+        for (let i = 0; i < this.blocksArr.length; i++) {
+            this.blocksArr[i].y += this.blockSpacing + 100;
+        }
 
         let block = this.scene.make.graphics()
             .fillStyle(color, 1)
-            .fillRoundedRect(0, 0, this.blockWidth, this.blockHeight, this.blockSpacing);
+            .fillRoundedRect(0, 0, this.blockWidth, this.blockHeight, radius);
+        this.add(block);
+
         block.x = x;
         block.y = y;
         block.colorType = colorType;
-        this.add(block);
+
         this.blocksArr.push(block);
 
-        block.tween = this.scene.tweens.add({
-            targets: block,
-            y: toY,
-            duration: duration,
-            ease: 'Linear',
-            onUpdate: (tween) => {
-                const target = tween.getValue();
-                block.setData('y', target);
-            },
-            onComplete: () => {
-                this.blocksArr = this.blocksArr.filter((b) => b !== block);
-
-                for (let i = 0; i < this.blocksArr.length; i++) {
-                    this.blocksArr[i].tween.stop();
-                }
-                if (this.blockLoop) {
-                    this.blockLoop.remove();
-                }
-                if (this.circleLoop) {
-                    this.circleLoop.remove();
-                }
-                this.gameOver = true;
-                console.log("Game Over!");
-            },
-        });
-
-        block.setData('x', x);
-        block.setData('y', y);
-        block.setData('width', this.blockWidth);
-        block.setData('height', this.blockHeight);
-        block.setData('colorType', colorType);
+        if (this.blocksArr[0].y >= 220) {
+            if (this.blockLoop) {
+                this.blockLoop.remove();
+            }
+            if (this.circleLoop) {
+                this.circleLoop.remove();
+            }
+            this.gameOver = true;
+            console.log("Game Over!");
+        }
     }
 
     createSmallCircle() {
@@ -128,65 +114,60 @@ export class GamePlay extends Phaser.GameObjects.Container {
         let fill = this.scene.add.graphics();
         fill.fillStyle(this.currentColor, 1);
         fill.fillCircle(0, 0, circleRadius);
+        this.add(fill);
+
         fill.x = centerX;
         fill.y = centerY;
-        this.add(fill);
         fill.colorType = this.currentColorType;
         this.currentBall = fill;
-
-        fill.setData('radius', circleRadius);
-        fill.setData('x', centerX);
-        fill.setData('y', centerY);
-        fill.setData('colorType', this.currentColorType);
+        fill.radius = circleRadius;
 
         this.circleArr.push(fill);
 
-        this.scene.tweens.add({
+        fill.tween = this.scene.tweens.add({
             targets: fill,
             y: { from: fill.y, to: fill.y - 1000 },
-            duration: 2000,
+            duration: 1000,
             ease: 'Linear',
             onUpdate: () => this.checkCollisions(fill),
         });
     }
 
-    checkCollisions(circle) {
+    checkCollisions(circle1) {
         if (this.blocksArr.length === 0) return;
-
         this.blocksArr.forEach((block) => {
-            const circleX = circle.x;
-            const circleY = circle.y;
-            const circleRadius = circle.getData('radius');
+            let rect = new Phaser.Geom.Rectangle(block.x, block.y, this.blockWidth, this.blockHeight);
+            let circle = new Phaser.Geom.Circle(circle1.x, circle1.y, circle1.radius);
 
-            const blockX = block.getData('x');
-            const blockY = block.getData('y');
-            const blockWidth = block.getData('width');
-            const blockHeight = block.getData('height');
-
-            if (
-                circleX + circleRadius > blockX &&
-                circleX - circleRadius < blockX + blockWidth &&
-                circleY + circleRadius > blockY &&
-                circleY - circleRadius < blockY + blockHeight
-            ) {
-                this.handleCircleBlockCollision(circle, block);
+            if (Phaser.Geom.Intersects.CircleToRectangle(circle, rect)) {
+                this.circleArr = this.circleArr.filter((c) => c !== circle);
+                circle1.tween.stop();
+                circle1.destroy();
+                console.log(circle1.colorType, block.colorType);
+                this.handleCircleBlockCollision(circle1, block)
             }
         });
     }
 
     handleCircleBlockCollision(circle, block) {
-        if (this.currentColorType == block.colorType) {
-            block.tween.stop();
-            circle.destroy();
-            block.destroy();
-
+        if (this.largeCircleSprite.type == block.colorType) {
             this.circleArr = this.circleArr.filter((c) => c !== circle);
             this.blocksArr = this.blocksArr.filter((b) => b !== block);
+            if (circle.tween) {
+                circle.tween.stop();
+            }
+
+            circle.destroy();
+            block.destroy();
 
             this.score++;
             console.log(`Score: ${this.score}`);
             this.scoreText.setText(`Score: ${this.score}`);
         } else {
+            this.circleArr = this.circleArr.filter((c) => c !== circle);
+            if (circle.tween) {
+                circle.tween.stop();
+            }
             circle.destroy();
         }
     }
@@ -196,6 +177,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
         this.largeCircleSprite = this.scene.add.sprite(0, 400, "sheet", "orange");
         this.largeCircleSprite.setOrigin(0.5);
         this.add(this.largeCircleSprite);
+
         this.largeCircleSprite.type = this.currentColorType
 
         this.largeCircleSprite.setInteractive();
@@ -205,7 +187,6 @@ export class GamePlay extends Phaser.GameObjects.Container {
     }
 
     onBigCircleClick() {
-        console.log(this.largeCircleSprite.type);
         if (this.largeCircleSprite.type == "orange") {
             this.largeCircleSprite.setFrame("blue")
             if (this.circleArr) {
