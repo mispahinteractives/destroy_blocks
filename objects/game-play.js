@@ -125,12 +125,31 @@ export class GamePlay extends Phaser.GameObjects.Container {
 
         this.circleArr.push(fill);
 
+        const emitter = this.scene.add.particles(0, 0, "white", {
+            speed: 80,
+            lifespan: 800,
+            scale: { start: 0.14, end: 0 },
+            alpha: { start: .9, end: 0 },
+            quantity: 1,
+            frequency: 50,
+            maxParticles: 30
+        });
+        this.add(emitter);
+        fill.emitter = emitter;
+        emitter.startFollow(fill);
+
+        this.bringToTop(fill)
+
         fill.tween = this.scene.tweens.add({
             targets: fill,
-            y: { from: fill.y, to: fill.y - 1000 },
+            y: fill.y - 1000,
             duration: 1000,
             ease: 'Linear',
             onUpdate: () => this.checkCollisions(fill),
+            onComplete: () => {
+                emitter.stop();
+                emitter.destroy();
+            }
         });
     }
 
@@ -173,6 +192,10 @@ export class GamePlay extends Phaser.GameObjects.Container {
                 circle.tween.stop();
             }
 
+            if (circle.emitter) {
+                circle.emitter.destroy();
+            }
+
             circle.destroy();
             block.destroy();
 
@@ -184,6 +207,9 @@ export class GamePlay extends Phaser.GameObjects.Container {
                 circle.tween.stop();
             }
             circle.destroy();
+            if (circle.emitter) {
+                circle.emitter.destroy();
+            }
         }
     }
 
