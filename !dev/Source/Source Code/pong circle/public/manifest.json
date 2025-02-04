@@ -1,0 +1,109 @@
+{
+   "bundles": [
+      {
+         "name": "loading-assets",
+         "assets": [
+            {
+               "alias": "loading_background",
+               "src": "./StaticImage/loading_background.png"
+            },
+            {
+               "alias": "game_logo",
+               "src": "./StaticImage/game_logo.png"
+            },
+            {
+               "alias": "play_button",
+               "src": "./StaticImage/play_button.png"
+            },
+            {
+               "alias": "loading_bar_filled",
+               "src": "./StaticImage/loading_bar_filled.png"
+            },
+            {
+               "alias": "loading_bar_unfilled",
+               "src": "./StaticImage/loading_bar_unfilled.png"
+            }
+         ]
+      },
+      {
+         "name": "font-assets",
+         "assets": [
+            {
+               "alias": "Showcard_gothic",
+               "src": "./Font/Showcard_gothic.ttf"
+            },
+            {
+               "alias": "Bauhaus",
+               "src": "./Font/Bauhaus.ttf"
+            }
+         ]
+      },
+      {
+         "name": "background-assets",
+         "assets": [
+            {
+               "alias": "background_desktop",
+               "src": "./StaticImage/BG_desktop.png"
+            }
+         ]
+      },
+      {
+         "name": "tutorial-assets",
+         "assets": [
+            {
+               "alias": "character",
+               "src": "./StaticImage/character.png"
+            },
+            {
+               "alias": "hand",
+               "src": "./StaticImage/hand.png"
+            },
+            {
+               "alias": "buttonBg",
+               "src": "./StaticImage/buttonBg.png"
+            },
+            {
+               "alias": "tutorialPlate",
+               "src": "./StaticImage/tutorialPlate.png"
+            },
+            {
+               "alias": "start_btn",
+               "src": "./StaticImage/start_btn.png"
+            },
+            {
+               "alias": "frame_bg",
+               "src": "./StaticImage/frame.png"
+            }
+         ]
+      },
+      {
+         "name": "ui-assets",
+         "assets": [
+            {
+               "alias": "ui_assets",
+               "src": "./StaticImage/ui.json"
+            },
+            {
+               "alias": "gameOver_assets",
+               "src": "./StaticImage/game_over.png"
+            },
+            {
+               "alias": "arc_new",
+               "src": "./StaticImage/arc_new.png"
+            },
+            {
+               "alias": "circle_new",
+               "src": "./StaticImage/circle_new.png"
+            },
+            {
+               "alias": "ball_assets",
+               "src": "./StaticImage/ball.png"
+            },
+            {
+               "alias": "playAgain_assets",
+               "src": "./StaticImage/PlayAgain.png"
+            }
+         ]
+      }
+   ]
+}

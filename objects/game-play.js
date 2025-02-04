@@ -28,7 +28,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
         this.currentColorType = this.colorsType[1];
 
         this.createBlocks();
-        this.createBigCircle();
+        this.addShooter();
         this.createLine();
 
         this.scoreText = this.scene.add.text(-230, 340, this.score, {
@@ -183,7 +183,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
     }
 
     handleCircleBlockCollision(circle, block) {
-        if (this.largeCircleSprite.type == block.colorType) {
+        if (this.shooter.type == block.colorType) {
             this.createCollisionEffect(block, block.x, block.y, block.colorType);
             this.circleArr = this.circleArr.filter((c) => c !== circle);
             this.blocksArr = this.blocksArr.filter((b) => b !== block);
@@ -230,23 +230,27 @@ export class GamePlay extends Phaser.GameObjects.Container {
     }
 
 
-    createBigCircle() {
+    addShooter() {
 
-        this.largeCircleSprite = this.scene.add.sprite(0, 395, "sheet", "orange");
-        this.largeCircleSprite.setOrigin(0.5);
-        this.add(this.largeCircleSprite);
+        this.shooterBg = this.scene.add.sprite(0, 340, "sheet", "shooter1");
+        this.shooterBg.setOrigin(0.5);
+        this.add(this.shooterBg);
 
-        this.largeCircleSprite.type = this.currentColorType
+        this.shooter = this.scene.add.sprite(0, 340, "sheet", "shooter1");
+        this.shooter.setOrigin(0.5);
+        this.add(this.shooter);
 
-        this.largeCircleSprite.setInteractive();
-        this.largeCircleSprite.on("pointerdown", (event) => {
-            this.onBigCircleClick();
+        this.shooter.type = this.currentColorType
+
+        this.shooter.setInteractive();
+        this.shooter.on("pointerdown", (event) => {
+            this.onShooterClick();
         });
     }
 
-    onBigCircleClick() {
-        if (this.largeCircleSprite.type == "orange") {
-            this.largeCircleSprite.setFrame("blue")
+    onShooterClick() {
+        if (this.shooter.type == "orange") {
+            this.shooter.setFrame("blue")
             if (this.circleArr) {
                 this.circleArr.forEach(element => {
                     element.clear();
@@ -257,9 +261,9 @@ export class GamePlay extends Phaser.GameObjects.Container {
 
             this.currentColor = this.colors[0];
             this.currentColorType = this.colorsType[0];
-            this.largeCircleSprite.type = this.currentColorType
+            this.shooter.type = this.currentColorType
         } else {
-            this.largeCircleSprite.setFrame("orange")
+            this.shooter.setFrame("orange")
             if (this.circleArr) {
                 this.circleArr.forEach(element => {
                     element.clear();
@@ -269,7 +273,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
             }
             this.currentColor = this.colors[1];
             this.currentColorType = this.colorsType[1];
-            this.largeCircleSprite.type = this.currentColorType
+            this.shooter.type = this.currentColorType
         }
     }
 

@@ -1,0 +1,32 @@
+{"frames": {
+	"Ui_button.png":{
+		"rotated": false,"trimmed": true,
+		"frame": {"x":0,"y":851,"w":264,"h":264},
+		"spriteSourceSize": {"x":4,"y":5,"w":272,"h":276},
+		"sourceSize": {"w":272,"h":276}
+	},
+	"ball.png":{
+		"rotated": false,"trimmed": true,
+		"frame": {"x":0,"y":1427,"w":193,"h":219},
+		"spriteSourceSize": {"x":12,"y":27,"w":205,"h":246},
+		"sourceSize": {"w":205,"h":246}
+	},
+	"purple_circle.png":{
+		"rotated": false,"trimmed": true,
+		"frame": {"x":0,"y":0,"w":865,"h":849},
+		"spriteSourceSize": {"x":0,"y":0,"w":877,"h":849},
+		"sourceSize": {"w":877,"h":849}
+	},
+	"white_indicator.png":{
+		"rotated": false,"trimmed": true,
+		"frame": {"x":0,"y":1117,"w":228,"h":308},
+		"spriteSourceSize": {"x":3,"y":2,"w":235,"h":313},
+		"sourceSize": {"w":235,"h":313}
+	}
+},
+"meta": {
+	"app": "ShoeBox",
+	"image" :"ui.png",
+	"size": {"w":2048,"h":2048}
+}
+}

@@ -57,6 +57,9 @@ export default class GameScene extends Phaser.Scene {
         this.gameGroup = this.add.container();
         this.superGroup.add(this.gameGroup);
 
+        this.bg = this.add.sprite(0, 0, 'bg').setOrigin(0.5);
+        this.gameGroup.add(this.bg);
+
         this.gamePlay = new GamePlay(this, 0, 0, this, dimensions);
         this.gameGroup.add(this.gamePlay);
 
@@ -189,6 +192,15 @@ export default class GameScene extends Phaser.Scene {
         this.superGroup.scale = (this.gameScale);
         this.gameGroup.x = (this.game.canvas.width / this.gameScale - dimensions.gameWidth) / 2;
         this.gameGroup.y = (this.game.canvas.height / this.gameScale - dimensions.gameHeight) / 2;
+
+        this.bg.setScale(1);
+        let scaleX = dimensions.actualWidth / this.bg.displayWidth;
+        let scaleY = dimensions.actualHeight / this.bg.displayHeight;
+        let scale = Math.max(scaleX, scaleY);
+        this.bg.setScale(scale);
+
+        this.bg.x = dimensions.gameWidth / 2;
+        this.bg.y = dimensions.gameHeight / 2;
 
         this.gamePlay.x = dimensions.gameWidth / 2;
         this.gamePlay.y = dimensions.gameHeight / 2;
