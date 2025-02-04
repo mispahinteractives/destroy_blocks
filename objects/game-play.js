@@ -232,7 +232,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
 
     addShooter() {
 
-        this.shooterBg = this.scene.add.sprite(0, 340, "sheet", "shooter1");
+        this.shooterBg = this.scene.add.sprite(0, 340, "sheet", "bottom_ui");
         this.shooterBg.setOrigin(0.5);
         this.add(this.shooterBg);
 
