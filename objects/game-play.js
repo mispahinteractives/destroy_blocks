@@ -104,7 +104,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
 
     createSmallCircle() {
         const centerX = 0;
-        const centerY = 400;
+        const centerY = this.shooter.y - 80;
 
         let fill = this.scene.add.sprite(centerX, centerY, this.currentColorType);
         fill.setOrigin(0.5);
@@ -130,6 +130,14 @@ export class GamePlay extends Phaser.GameObjects.Container {
 
         this.bringToTop(fill)
 
+        this.scene.tweens.add({
+            targets: this.shooter,
+            y: this.shooter.y - 15,
+            duration: 100,
+            yoyo: true,
+            ease: 'Power1'
+        });
+
         fill.tween = this.scene.tweens.add({
             targets: fill,
             y: fill.y - 1000,
@@ -146,7 +154,6 @@ export class GamePlay extends Phaser.GameObjects.Container {
     checkCollisions(circle1) {
         if (this.blocksArr.length === 0) return;
         this.blocksArr.forEach((block) => {
-            console.log(block.width);
             let rect = new Phaser.Geom.Rectangle(block.x, block.y, block.width, block.height);
             let circle = new Phaser.Geom.Circle(circle1.x, circle1.y, circle1.radius);
 
@@ -191,12 +198,12 @@ export class GamePlay extends Phaser.GameObjects.Container {
     }
 
     createCollisionEffect(block, x, y, colorType) {
-        const emitZone1 = { type: 'random', source: new Phaser.Geom.Rectangle(x - (block.width / 2), y, block.width, block.height), quantity: 25 };
+        const emitZone1 = { type: 'random', source: new Phaser.Geom.Rectangle(x - (block.width / 2), y - (block.height / 2), block.width, block.height), quantity: 25 };
         const emitter = this.scene.add.particles(0, 0, colorType, {
             speed: 24,
             lifespan: 250,
             quantity: 25,
-            scale: { start: 0.1, end: 0 },
+            scale: { start: 0.4, end: 0 },
             emitZone: emitZone1,
             duration: 100,
             emitting: false

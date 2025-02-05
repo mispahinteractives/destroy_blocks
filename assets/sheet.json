@@ -25,6 +25,14 @@
 	"sourceSize": {"w":103,"h":154}
 },
 {
+	"filename": "blue",
+	"frame": {"x":424,"y":487,"w":12,"h":12},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":12,"h":12},
+	"sourceSize": {"w":12,"h":12}
+},
+{
 	"filename": "line",
 	"frame": {"x":2,"y":577,"w":595,"h":8},
 	"rotated": false,
@@ -74,7 +82,7 @@
 },
 {
 	"filename": "tutorial/3",
-	"frame": {"x":424,"y":487,"w":12,"h":12},
+	"frame": {"x":301,"y":588,"w":12,"h":12},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":12,"h":12},
@@ -82,7 +90,7 @@
 },
 {
 	"filename": "tutorial/4",
-	"frame": {"x":301,"y":588,"w":12,"h":12},
+	"frame": {"x":424,"y":487,"w":12,"h":12},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":12,"h":12},
@@ -127,6 +135,6 @@
 	"format": "RGBA8888",
 	"size": {"w":978,"h":660},
 	"scale": "0.5",
-	"smartupdate": "$TexturePacker:SmartUpdate:c8a967bb4adc8d64d086ce1c6a29f334:e3a085e666e8785329d880f4b54ff274:9c44ecd7e9a522007eaff2949095bc1d$"
+	"smartupdate": "$TexturePacker:SmartUpdate:abeb2228361e594149894fd41b6aad6a:05dbee38fcfe7708338b842b6b39ef8a:9c44ecd7e9a522007eaff2949095bc1d$"
 }
 }
