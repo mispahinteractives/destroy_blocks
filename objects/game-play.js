@@ -16,20 +16,17 @@ export class GamePlay extends Phaser.GameObjects.Container {
     init() {
         this.blocksArr = [];
         this.circleArr = [];
-        this.colors = [0x00ffff, 0xfd752b];
-        this.colorsType = ["blue", "orange"];
+        this.colors = ["red", "yellow"];
         this.blockWidth = 470;
         this.blockHeight = 50;
         this.blockSpacing = -40;
         this.blockSpeed = 1000;
         this.score = 0;
 
-        this.currentColor = this.colors[1];
-        this.currentColorType = this.colorsType[1];
+        this.currentColorType = this.colors[0];
 
         this.createBlocks();
         this.addShooter();
-        this.createLine();
 
         this.scoreText = this.scene.add.text(-230, 340, this.score, {
             fontFamily: "Arial",
@@ -67,10 +64,9 @@ export class GamePlay extends Phaser.GameObjects.Container {
 
         const colorIndex = Math.floor(Math.random() * this.colors.length);
         const color = this.colors[colorIndex];
-        const colorType = this.colorsType[colorIndex];
-        const radius = 20;
+        const colorType = this.colors[colorIndex];
 
-        const x = -this.blockWidth / 2;
+        const x = 0;
         let y;
 
         if (this.blocksArr.length > 0) {
@@ -84,9 +80,8 @@ export class GamePlay extends Phaser.GameObjects.Container {
             this.blocksArr[i].y += this.blockSpacing + 100;
         }
 
-        let block = this.scene.make.graphics()
-            .fillStyle(color, 1)
-            .fillRoundedRect(0, 0, this.blockWidth, this.blockHeight, radius);
+        let block = this.scene.add.sprite(x, y, "sheet", color);
+        block.setOrigin(0.5);
         this.add(block);
 
         block.x = x;
@@ -110,25 +105,20 @@ export class GamePlay extends Phaser.GameObjects.Container {
     createSmallCircle() {
         const centerX = 0;
         const centerY = 400;
-        const circleRadius = 20;
 
-        let fill = this.scene.add.graphics();
-        fill.fillStyle(this.currentColor, 1);
-        fill.fillCircle(0, 0, circleRadius);
+        let fill = this.scene.add.sprite(centerX, centerY, this.currentColorType);
+        fill.setOrigin(0.5);
         this.add(fill);
 
         fill.x = centerX;
         fill.y = centerY;
         fill.colorType = this.currentColorType;
         this.currentBall = fill;
-        fill.radius = circleRadius;
-
         this.circleArr.push(fill);
-
         const emitter = this.scene.add.particles(0, 0, "white", {
             speed: 80,
             lifespan: 800,
-            scale: { start: 0.14, end: 0 },
+            scale: { start: 1, end: 0 },
             alpha: { start: .9, end: 0 },
             quantity: 1,
             frequency: 50,
@@ -153,24 +143,11 @@ export class GamePlay extends Phaser.GameObjects.Container {
         });
     }
 
-    createLine() {
-        const centerX = -this.blockWidth / 2;
-        const centerY = 300;
-        const lineRadius = 3;
-
-        let fill = this.scene.add.graphics();
-        fill.fillStyle(this.colors[0], 1);
-        fill.fillRoundedRect(0, 0, this.blockWidth, 7, lineRadius);
-        this.add(fill);
-        fill.x = centerX;
-        fill.y = centerY;
-
-    }
-
     checkCollisions(circle1) {
         if (this.blocksArr.length === 0) return;
         this.blocksArr.forEach((block) => {
-            let rect = new Phaser.Geom.Rectangle(block.x, block.y, this.blockWidth, this.blockHeight);
+            console.log(block.width);
+            let rect = new Phaser.Geom.Rectangle(block.x, block.y, block.width, block.height);
             let circle = new Phaser.Geom.Circle(circle1.x, circle1.y, circle1.radius);
 
             if (Phaser.Geom.Intersects.CircleToRectangle(circle, rect)) {
@@ -214,7 +191,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
     }
 
     createCollisionEffect(block, x, y, colorType) {
-        const emitZone1 = { type: 'random', source: new Phaser.Geom.Rectangle(block.x, block.y, this.blockWidth, this.blockHeight), quantity: 25 };
+        const emitZone1 = { type: 'random', source: new Phaser.Geom.Rectangle(x - (block.width / 2), y, block.width, block.height), quantity: 25 };
         const emitter = this.scene.add.particles(0, 0, colorType, {
             speed: 24,
             lifespan: 250,
@@ -229,18 +206,17 @@ export class GamePlay extends Phaser.GameObjects.Container {
         emitter.start(100);
     }
 
-
     addShooter() {
 
-        this.shooterBg = this.scene.add.sprite(0, 340, "sheet", "bottom_ui");
+        this.shooterBg = this.scene.add.sprite(0, 450, "sheet", "ball_thrower/thrower_bg");
         this.shooterBg.setOrigin(0.5);
         this.add(this.shooterBg);
 
-        this.shooter = this.scene.add.sprite(0, 340, "sheet", "shooter1");
+        this.shooter = this.scene.add.sprite(0, 395, "sheet", "ball_thrower/" + this.currentColorType);
         this.shooter.setOrigin(0.5);
         this.add(this.shooter);
 
-        this.shooter.type = this.currentColorType
+        this.shooter.type = this.currentColorType;
 
         this.shooter.setInteractive();
         this.shooter.on("pointerdown", (event) => {
@@ -249,30 +225,20 @@ export class GamePlay extends Phaser.GameObjects.Container {
     }
 
     onShooterClick() {
-        if (this.shooter.type == "orange") {
-            this.shooter.setFrame("blue")
-            if (this.circleArr) {
-                this.circleArr.forEach(element => {
-                    element.clear();
-                    element.fillStyle(this.colors[0], 1);
-                    element.fillCircle(0, 0, 20);
-                });
-            }
-
-            this.currentColor = this.colors[0];
-            this.currentColorType = this.colorsType[0];
+        console.log(this.shooter.type);
+        if (this.shooter.type == "yellow") {
+            this.shooter.setFrame("ball_thrower/red")
+            this.circleArr.forEach(element => {
+                element.setTexture("red")
+            });
+            this.currentColorType = this.colors[0];
             this.shooter.type = this.currentColorType
         } else {
-            this.shooter.setFrame("orange")
-            if (this.circleArr) {
-                this.circleArr.forEach(element => {
-                    element.clear();
-                    element.fillStyle(this.colors[1], 1);
-                    element.fillCircle(0, 0, 20);
-                });
-            }
-            this.currentColor = this.colors[1];
-            this.currentColorType = this.colorsType[1];
+            this.shooter.setFrame("ball_thrower/yellow")
+            this.circleArr.forEach(element => {
+                element.setTexture("yellow")
+            });
+            this.currentColorType = this.colors[1];
             this.shooter.type = this.currentColorType
         }
     }
