@@ -2,7 +2,7 @@
 
 {
 	"filename": "ball_thrower/red",
-	"frame": {"x":767,"y":487,"w":103,"h":154},
+	"frame": {"x":702,"y":462,"w":103,"h":154},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":103,"h":154},
@@ -10,7 +10,7 @@
 },
 {
 	"filename": "ball_thrower/thrower_bg",
-	"frame": {"x":2,"y":588,"w":296,"h":70},
+	"frame": {"x":600,"y":389,"w":296,"h":70},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":296,"h":70},
@@ -18,7 +18,7 @@
 },
 {
 	"filename": "ball_thrower/yellow",
-	"frame": {"x":873,"y":487,"w":103,"h":154},
+	"frame": {"x":808,"y":462,"w":103,"h":154},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":103,"h":154},
@@ -26,15 +26,23 @@
 },
 {
 	"filename": "blue",
-	"frame": {"x":424,"y":487,"w":12,"h":12},
+	"frame": {"x":2,"y":689,"w":12,"h":12},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":12,"h":12},
 	"sourceSize": {"w":12,"h":12}
 },
 {
+	"filename": "hand",
+	"frame": {"x":591,"y":462,"w":108,"h":207},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":0,"w":108,"h":207},
+	"sourceSize": {"w":124,"h":207}
+},
+{
 	"filename": "line",
-	"frame": {"x":2,"y":577,"w":595,"h":8},
+	"frame": {"x":2,"y":704,"w":595,"h":8},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":10,"y":0,"w":595,"h":8},
@@ -42,7 +50,7 @@
 },
 {
 	"filename": "play",
-	"frame": {"x":600,"y":487,"w":164,"h":164},
+	"frame": {"x":424,"y":389,"w":164,"h":164},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":8,"w":164,"h":164},
@@ -50,7 +58,7 @@
 },
 {
 	"filename": "red",
-	"frame": {"x":424,"y":279,"w":512,"h":52},
+	"frame": {"x":424,"y":2,"w":512,"h":52},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":52},
@@ -58,7 +66,7 @@
 },
 {
 	"filename": "title",
-	"frame": {"x":424,"y":2,"w":510,"h":274},
+	"frame": {"x":424,"y":112,"w":510,"h":274},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":17,"y":1,"w":510,"h":274},
@@ -66,7 +74,7 @@
 },
 {
 	"filename": "tutorial/1",
-	"frame": {"x":937,"y":2,"w":38,"h":109},
+	"frame": {"x":2,"y":577,"w":38,"h":109},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":38,"h":109},
@@ -74,7 +82,7 @@
 },
 {
 	"filename": "tutorial/2",
-	"frame": {"x":937,"y":114,"w":38,"h":109},
+	"frame": {"x":43,"y":577,"w":38,"h":109},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":38,"h":109},
@@ -82,7 +90,7 @@
 },
 {
 	"filename": "tutorial/3",
-	"frame": {"x":301,"y":588,"w":12,"h":12},
+	"frame": {"x":17,"y":689,"w":12,"h":12},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":12,"h":12},
@@ -90,7 +98,7 @@
 },
 {
 	"filename": "tutorial/4",
-	"frame": {"x":424,"y":487,"w":12,"h":12},
+	"frame": {"x":2,"y":689,"w":12,"h":12},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":12,"h":12},
@@ -98,7 +106,7 @@
 },
 {
 	"filename": "tutorial/close",
-	"frame": {"x":860,"y":389,"w":97,"h":95},
+	"frame": {"x":702,"y":619,"w":97,"h":95},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":97,"h":95},
@@ -114,7 +122,7 @@
 },
 {
 	"filename": "tutorial/play",
-	"frame": {"x":424,"y":389,"w":433,"h":95},
+	"frame": {"x":84,"y":577,"w":433,"h":95},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":433,"h":95},
@@ -122,7 +130,7 @@
 },
 {
 	"filename": "yellow",
-	"frame": {"x":424,"y":334,"w":512,"h":52},
+	"frame": {"x":424,"y":57,"w":512,"h":52},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":52},
@@ -133,8 +141,8 @@
 	"version": "1.0",
 	"image": "sheet.png",
 	"format": "RGBA8888",
-	"size": {"w":978,"h":660},
+	"size": {"w":938,"h":716},
 	"scale": "0.5",
-	"smartupdate": "$TexturePacker:SmartUpdate:abeb2228361e594149894fd41b6aad6a:05dbee38fcfe7708338b842b6b39ef8a:9c44ecd7e9a522007eaff2949095bc1d$"
+	"smartupdate": "$TexturePacker:SmartUpdate:4a5bbff1649b16b504e057fb96c83f41:a7980e1659ef7857b14a65e999df1fc6:9c44ecd7e9a522007eaff2949095bc1d$"
 }
 }

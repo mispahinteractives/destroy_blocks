@@ -224,6 +224,11 @@ export class GamePlay extends Phaser.GameObjects.Container {
         this.shooter.setOrigin(0.5);
         this.add(this.shooter);
 
+        this.hand = this.scene.add.sprite(50, 395, "sheet", "hand");
+        this.hand.setOrigin(0.5);
+        this.hand.angle = -30
+        this.add(this.hand);
+
         this.shooter.type = this.currentColorType;
 
         this.shooter.setInteractive();
