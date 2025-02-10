@@ -28,9 +28,9 @@ export class Tutorial extends Phaser.GameObjects.Container {
 
         this.circleArr = [];
 
-        let startX = -25;
+        let startX = -11;
         let startY = 140;
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 2; i++) {
 
             let blueCircle = this.scene.add.sprite(startX, startY, "sheet", "tutorial/4");
             blueCircle.setOrigin(0.5);
@@ -50,7 +50,7 @@ export class Tutorial extends Phaser.GameObjects.Container {
         }
 
         this.circleArr[1].whiteCircle.visible = false;
-        this.circleArr[2].whiteCircle.visible = false;
+        // this.circleArr[2].whiteCircle.visible = false;
 
         this.leftArrow = this.scene.add.sprite(0, 0, "sheet", 'tutorial/2');
         this.leftArrow.setOrigin(0.5);
@@ -79,6 +79,7 @@ export class Tutorial extends Phaser.GameObjects.Container {
         this.hand.setScale(1);
         this.hand.angle = -25;
         this.add(this.hand);
+        this.hand.alpha = 0;
 
         this.playBtn.on("pointerdown", (event) => {
             this.click()
@@ -93,6 +94,9 @@ export class Tutorial extends Phaser.GameObjects.Container {
             this.click1(this.rightArrow)
         });
 
+        this.leftArrow.on("pointerdown", (event) => {
+            this.click2(this.leftArrow)
+        });
         this.visible = false;
         this.show();
     }
@@ -101,11 +105,11 @@ export class Tutorial extends Phaser.GameObjects.Container {
         this.playBtn.disableInteractive();
         this.closeBtn.disableInteractive();
         this.hide();
+        this.scene.tutorial1.hide();
     }
 
     click1(sprite) {
         this.rightArrow.disableInteractive();
-        console.log(".......");
         this.hand.visible = false;
         this.scene.tweens.add({
             targets: this.frameGrp,
@@ -119,11 +123,31 @@ export class Tutorial extends Phaser.GameObjects.Container {
 
     }
 
+    click2(sprite) {
+        this.leftArrow.disableInteractive();
+        this.hand.visible = false;
+        this.scene.tweens.add({
+            targets: this.scene.tutorial1.frameGrp,
+            x: { from: this.scene.tutorial1.frameGrp.x, to: this.scene.tutorial1.frameGrp.x + 1000 },
+            ease: "Linear",
+            duration: 250,
+            onComplete: () => {
+                this.scene.tweens.add({
+                    targets: this.frameGrp,
+                    x: { from: this.frameGrp.x, to: this.frameGrp.x + 1000 },
+                    ease: "Linear",
+                    duration: 250,
+                })
+            }
+        })
+
+    }
+
     show() {
-        if (this.visible) return;
+        // if (this.visible) return;
         this.visible = true;
         this.alpha = 0;
-        this.frameGrp.alpha = 0;
+        // this.frameGrp.alpha = 0;
 
         this.scene.tweens.add({
             targets: this,
@@ -133,8 +157,8 @@ export class Tutorial extends Phaser.GameObjects.Container {
             onComplete: () => {
                 this.scene.tweens.add({
                     targets: this.frameGrp,
-                    alpha: { from: 0, to: 1 },
-                    y: { from: this.frameGrp.y - 500, to: this.frameGrp.y },
+                    // alpha: { from: 0, to: 1 },
+                    // x: { from: this.frameGrp.y - 500, to: this.frameGrp.y },
                     ease: "Back.easeOut",
                     duration: 200,
                     onComplete: () => {
@@ -142,18 +166,6 @@ export class Tutorial extends Phaser.GameObjects.Container {
                             this.showTutorial();
                             this.playBtn.setInteractive();
                             this.closeBtn.setInteractive();
-                            setTimeout(() => {
-                                this.hand.visible = false;
-                                this.scene.tweens.add({
-                                    targets: this.frameGrp,
-                                    x: { from: this.frameGrp.x, to: this.frameGrp.x - 1000 },
-                                    ease: "Linear",
-                                    duration: 250,
-                                    onComplete: () => {
-                                        this.scene.tutorial1.show()
-                                    }
-                                })
-                            }, 5000);
                         }, 700);
                     }
                 })
@@ -194,12 +206,20 @@ export class Tutorial extends Phaser.GameObjects.Container {
     handTween() {
         this.scene.tweens.add({
             targets: this.hand,
-            scale: { from: this.hand.scale, to: this.hand.scale - 0.1 },
+            alpha: 1,
             ease: "Linear",
             duration: 250,
-            yoyo: true,
             onComplete: () => {
-                // this.hand.visible = false;
+                this.scene.tweens.add({
+                    targets: this.hand,
+                    scale: { from: this.hand.scale, to: this.hand.scale - 0.1 },
+                    ease: "Linear",
+                    duration: 250,
+                    yoyo: true,
+                    onComplete: () => {
+                        // this.hand.visible = false;
+                    }
+                })
             }
         })
     }
@@ -211,11 +231,26 @@ export class Tutorial extends Phaser.GameObjects.Container {
             callback: () => {
                 this.showYellowBall();
                 this.scene.time.addEvent({
-                    delay: 1500,
+                    delay: 1000,
                     callback: () => {
-                        this.showTutorial();
+                        this.hand.visible = false;
+                        this.hideFrame();
+                        this.scene.tutorial1.show()
                     }
                 })
+            }
+        })
+    }
+
+    hideFrame() {
+        this.scene.tweens.add({
+            targets: this.frameGrp,
+            x: this.frameGrp.x - 400,
+            ease: "Linear",
+            duration: 250,
+            onComplete: () => {
+                this.frameGrp.visible = false;
+                this.frameGrp.x += 400;
             }
         })
     }
@@ -244,7 +279,7 @@ export class Tutorial extends Phaser.GameObjects.Container {
                     this.redBall.visible = false;
                 }
             })
-        }, 700)
+        }, 350)
     }
 
     showYellowBall() {
@@ -271,7 +306,7 @@ export class Tutorial extends Phaser.GameObjects.Container {
                     this.redBall.visible = false;
                 }
             })
-        }, 700)
+        }, 350)
     }
 
     hide() {
