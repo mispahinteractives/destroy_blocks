@@ -23,6 +23,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
         this.blockSpeed = 1000;
         this.ballSpeed = 1000;
         this.ballDelay = 1000;
+        this.emitterBallSpeed = 80;
         this.score = 0;
 
         this.currentColorType = this.colors[0];
@@ -103,29 +104,13 @@ export class GamePlay extends Phaser.GameObjects.Container {
 
         const lowestBlock = this.blocksArr[0].y;
         const dangerZone = -300;
-        console.log(lowestBlock, dangerZone);
+        // console.log(lowestBlock, dangerZone);
         if (lowestBlock >= dangerZone) {
             this.blockSpeed = Math.max(400, this.blockSpeed - 50);
             this.ballSpeed = Math.max(400, this.ballSpeed - 50);
+            this.emitterBallSpeed = Math.max(5, this.emitterBallSpeed - 10);
 
-            // if (this.blockLoop) this.blockLoop.remove();
-            // if (this.circleLoop) this.circleLoop.remove();
-
-            // this.blockLoop = this.scene.time.addEvent({
-            //     delay: this.blockSpeed,
-            //     callback: this.createBlocks,
-            //     callbackScope: this,
-            //     loop: true,
-            // });
-
-            // this.circleLoop = this.scene.time.addEvent({
-            //     delay: this.ballDelay,
-            //     callback: this.createSmallCircle,
-            //     callbackScope: this,
-            //     loop: true,
-            // });
-
-            console.log(`Speed Increased! Block Speed: ${this.blockSpeed}, Ball Speed: ${this.ballSpeed}`);
+            // console.log(`Speed Increased! Block Speed: ${this.blockSpeed}, Ball Speed: ${this.ballSpeed}`);
         }
     }
 
@@ -144,7 +129,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
         this.currentBall = fill;
         this.circleArr.push(fill);
         const emitter = this.scene.add.particles(0, 0, "white", {
-            speed: 80,
+            speed: this.emitterBallSpeed,
             lifespan: 800,
             scale: { start: 1, end: 0 },
             alpha: { start: .9, end: 0 },
@@ -195,7 +180,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
     }
 
     handleCircleBlockCollision(circle, block) {
-        console.log(this.blocksArr.length);
+        // console.log(this.blocksArr.length);
         if (this.shooter.type == block.colorType) {
             this.createCollisionEffect(block, block.x, block.y, block.colorType);
             this.circleArr = this.circleArr.filter((c) => c !== circle);
