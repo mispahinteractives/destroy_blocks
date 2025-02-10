@@ -12,12 +12,6 @@ export class Tutorial extends Phaser.GameObjects.Container {
     }
 
     init() {
-        this.graphicsGrp = this.scene.add.container(0, 0);
-        this.add(this.graphicsGrp);
-
-        this.graphics = this.scene.make.graphics().fillStyle(0x000000, 1).fillRect(this.dimensions.leftOffset, this.dimensions.topOffset, this.dimensions.actualWidth, this.dimensions.actualHeight);
-        this.graphicsGrp.add(this.graphics);
-
         this.frameGrp = this.scene.add.container(0, 0);
         this.add(this.frameGrp);
 
@@ -52,26 +46,6 @@ export class Tutorial extends Phaser.GameObjects.Container {
         this.circleArr[1].whiteCircle.visible = false;
         // this.circleArr[2].whiteCircle.visible = false;
 
-        this.leftArrow = this.scene.add.sprite(0, 0, "sheet", 'tutorial/2');
-        this.leftArrow.setOrigin(0.5);
-        this.leftArrow.setScale(1);
-        this.add(this.leftArrow);
-
-        this.rightArrow = this.scene.add.sprite(0, 0, "sheet", "tutorial/1");
-        this.rightArrow.setOrigin(0.5);
-        this.rightArrow.setScale(1);
-        this.add(this.rightArrow);
-
-        this.closeBtn = this.scene.add.sprite(0, 0, "sheet", 'tutorial/close');
-        this.closeBtn.setOrigin(0.5);
-        this.closeBtn.setScale(1);
-        this.add(this.closeBtn);
-
-        this.playBtn = this.scene.add.sprite(0, 0, "sheet", 'tutorial/play');
-        this.playBtn.setOrigin(0.5);
-        this.playBtn.setScale(1);
-        this.add(this.playBtn);
-
         this.addTutorial();
 
         this.hand = this.scene.add.sprite(this.shooter.x + 100, this.shooter.y + 185, "sheet", "hand");
@@ -81,73 +55,15 @@ export class Tutorial extends Phaser.GameObjects.Container {
         this.add(this.hand);
         this.hand.alpha = 0;
 
-        this.playBtn.on("pointerdown", (event) => {
-            this.click()
-        });
-
-        this.closeBtn.on("pointerdown", (event) => {
-            this.click()
-        });
-
-        this.rightArrow.setInteractive()
-        this.rightArrow.on("pointerdown", (event) => {
-            this.click1(this.rightArrow)
-        });
-
-        this.leftArrow.on("pointerdown", (event) => {
-            this.click2(this.leftArrow)
-        });
         this.visible = false;
         this.show();
     }
 
-    click() {
-        this.playBtn.disableInteractive();
-        this.closeBtn.disableInteractive();
-        this.hide();
-        this.scene.tutorial1.hide();
-    }
-
-    click1(sprite) {
-        this.rightArrow.disableInteractive();
-        this.hand.visible = false;
-        this.scene.tweens.add({
-            targets: this.frameGrp,
-            x: { from: this.frameGrp.x, to: this.frameGrp.x - 1000 },
-            ease: "Linear",
-            duration: 250,
-            onComplete: () => {
-                this.scene.tutorial1.show()
-            }
-        })
-
-    }
-
-    click2(sprite) {
-        this.leftArrow.disableInteractive();
-        this.hand.visible = false;
-        this.scene.tweens.add({
-            targets: this.scene.tutorial1.frameGrp,
-            x: { from: this.scene.tutorial1.frameGrp.x, to: this.scene.tutorial1.frameGrp.x + 1000 },
-            ease: "Linear",
-            duration: 250,
-            onComplete: () => {
-                this.scene.tweens.add({
-                    targets: this.frameGrp,
-                    x: { from: this.frameGrp.x, to: this.frameGrp.x + 1000 },
-                    ease: "Linear",
-                    duration: 250,
-                })
-            }
-        })
-
-    }
-
     show() {
-        // if (this.visible) return;
+        if (this.visible) return;
         this.visible = true;
         this.alpha = 0;
-        // this.frameGrp.alpha = 0;
+        this.frameGrp.alpha = 0;
 
         this.scene.tweens.add({
             targets: this,
@@ -157,15 +73,13 @@ export class Tutorial extends Phaser.GameObjects.Container {
             onComplete: () => {
                 this.scene.tweens.add({
                     targets: this.frameGrp,
-                    // alpha: { from: 0, to: 1 },
-                    // x: { from: this.frameGrp.y - 500, to: this.frameGrp.y },
+                    alpha: { from: 0, to: 1 },
+                    x: { from: this.frameGrp.y - 500, to: this.frameGrp.y },
                     ease: "Back.easeOut",
                     duration: 200,
                     onComplete: () => {
                         setTimeout(() => {
                             this.showTutorial();
-                            this.playBtn.setInteractive();
-                            this.closeBtn.setInteractive();
                         }, 700);
                     }
                 })
@@ -235,22 +149,9 @@ export class Tutorial extends Phaser.GameObjects.Container {
                     callback: () => {
                         this.hand.visible = false;
                         this.hideFrame();
-                        this.scene.tutorial1.show()
+                        this.scene.intro.tutorial2.show()
                     }
                 })
-            }
-        })
-    }
-
-    hideFrame() {
-        this.scene.tweens.add({
-            targets: this.frameGrp,
-            x: this.frameGrp.x - 400,
-            ease: "Linear",
-            duration: 250,
-            onComplete: () => {
-                this.frameGrp.visible = false;
-                this.frameGrp.x += 400;
             }
         })
     }
@@ -280,6 +181,15 @@ export class Tutorial extends Phaser.GameObjects.Container {
                 }
             })
         }, 350)
+    }
+
+    hideFrame() {
+        this.scene.tweens.add({
+            targets: this.frameGrp,
+            x: { from: this.frameGrp.x, to: this.frameGrp.x - 400 },
+            ease: "Linear",
+            duration: 250,
+        })
     }
 
     showYellowBall() {
@@ -319,30 +229,9 @@ export class Tutorial extends Phaser.GameObjects.Container {
             onComplete: () => {
                 this.visible = false;
                 this.alpha = 1;
-                this.scene.gamePlay.show();
+                // this.scene.gamePlay.show();
             }
         })
     }
 
-    adjust() {
-        this.x = this.dimensions.gameWidth / 2;
-        this.y = this.dimensions.gameHeight / 2;
-
-        this.leftArrow.x = this.dimensions.leftOffset + 17 - this.x;
-        this.leftArrow.y = this.dimensions.gameHeight / 2 - 50 - this.y;
-
-        this.rightArrow.x = this.dimensions.rightOffset - 17 - this.x;
-        this.rightArrow.y = this.dimensions.gameHeight / 2 - 50 - this.y;
-
-        this.closeBtn.x = this.dimensions.leftOffset + 47 - this.x;
-        this.closeBtn.y = this.dimensions.bottomOffset - 47 - this.y;
-
-        this.playBtn.x = this.dimensions.rightOffset - 204 - this.x;
-        this.playBtn.y = this.dimensions.bottomOffset - 47 - this.y;
-
-        this.graphics.clear();
-        this.graphics = this.scene.make.graphics().fillStyle(0x000000, 0.65).fillRect(this.dimensions.leftOffset - this.x, this.dimensions.topOffset - this.y, this.dimensions.actualWidth, this.dimensions.actualHeight);
-        this.graphicsGrp.add(this.graphics);
-
-    }
 }
