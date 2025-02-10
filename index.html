@@ -78,56 +78,22 @@
         }
 
         function onPromoClick() {
-            dataLayer.push({
-                pepsi_meals: null
-            });
-            dataLayer.push({
-                event: "uber_privacy_notice"
-            });
-            if (check_iOS()) {
-                window.location.assign(
-                    'https://www.uber.com/legal/en/document/?name=cookie-notice&country=united-states&lang=en')
-            } else {
-
-                window.open('https://www.uber.com/legal/en/document/?name=cookie-notice&country=united-states&lang=en');
-            }
 
         }
 
         function onCTAClick() {
-            dataLayer.push({
-                pepsi_meals: null
-            });
-            dataLayer.push({
-                event: "promo_cta"
-            });
+            if (check_iOS()) {
+                window.location.assign(
+                    'https://www.apple.com/in/app-store/')
+            } else {
+                window.open('https://play.google.com/store/games?hl=en');
+            }
         }
 
-        function onStartClick() {
-            dataLayer.push({
-                pepsi_meals: null
-            });
-            dataLayer.push({
-                event: "start"
-            });
-        }
-
-        function onCompleteClick() {
-            dataLayer.push({
-                pepsi_meals: null
-            });
-            dataLayer.push({
-                event: "game_complete"
-            });
-        }
+        function onCompleteClick() {}
 
         function onplayAgainClick() {
-            dataLayer.push({
-                pepsi_meals: null
-            });
-            dataLayer.push({
-                event: "playagain"
-            });
+
         }
     </script>
 </body>

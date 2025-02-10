@@ -37,7 +37,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
         this.add(this.scoreText);
 
         this.visible = false;
-        this.show();
+        // this.show();
     }
 
     show() {
@@ -99,6 +99,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
             }
             this.gameOver = true;
             console.log("Game Over!");
+            this.scene.cta.show();
         }
     }
 

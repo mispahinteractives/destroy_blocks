@@ -1,0 +1,237 @@
+export class Tutorial extends Phaser.GameObjects.Container {
+    constructor(scene, x, y, gameScene, dimensions) {
+
+        super(scene);
+        this.scene = scene;
+        this.x = x;
+        this.y = y;
+        this.gameScene = gameScene;
+        this.dimensions = dimensions;
+        this.scene.add.existing(this);
+        this.init();
+    }
+
+    init() {
+        this.graphicsGrp = this.scene.add.container(0, 0);
+        this.add(this.graphicsGrp);
+
+        this.graphics = this.scene.make.graphics().fillStyle(0x000000, 1).fillRect(this.dimensions.leftOffset, this.dimensions.topOffset, this.dimensions.actualWidth, this.dimensions.actualHeight);
+        this.graphicsGrp.add(this.graphics);
+
+        this.frameGrp = this.scene.add.container(0, 0);
+        this.add(this.frameGrp);
+
+        this.frame = this.scene.add.sprite(0, -100, "sheet", 'tutorial/panel');
+        this.frame.setOrigin(0.5);
+        this.frame.setScale(1);
+        this.frameGrp.add(this.frame);
+
+        this.circleArr = [];
+
+        let startX = -25;
+        let startY = 140;
+        for (let i = 0; i < 3; i++) {
+
+            let blueCircle = this.scene.add.sprite(startX, startY, "sheet", "tutorial/4");
+            blueCircle.setOrigin(0.5);
+            blueCircle.setScale(1.25);
+            this.frameGrp.add(blueCircle);
+
+            let whiteCircle = this.scene.add.sprite(startX, startY, "sheet", "tutorial/3");
+            whiteCircle.setOrigin(0.5);
+            whiteCircle.setScale(1.25);
+            this.frameGrp.add(whiteCircle);
+
+            this.circleArr.push(blueCircle);
+            blueCircle.whiteCircle = whiteCircle;
+
+            startX += 22;
+
+        }
+
+        this.circleArr[1].whiteCircle.visible = false;
+        this.circleArr[2].whiteCircle.visible = false;
+
+        this.leftArrow = this.scene.add.sprite(0, 0, "sheet", 'tutorial/1');
+        this.leftArrow.setOrigin(0.5);
+        this.leftArrow.setScale(1);
+        this.add(this.leftArrow);
+
+        this.rightArrow = this.scene.add.sprite(0, 0, "sheet", 'tutorial/2');
+        this.rightArrow.setOrigin(0.5);
+        this.rightArrow.setScale(1);
+        this.add(this.rightArrow);
+
+        this.closeBtn = this.scene.add.sprite(0, 0, "sheet", 'tutorial/close');
+        this.closeBtn.setOrigin(0.5);
+        this.closeBtn.setScale(1);
+        this.add(this.closeBtn);
+
+        this.playBtn = this.scene.add.sprite(0, 0, "sheet", 'tutorial/play');
+        this.playBtn.setOrigin(0.5);
+        this.playBtn.setScale(1);
+        this.add(this.playBtn);
+
+        this.addTutorial();
+
+        this.playBtn.on("pointerdown", (event) => {
+            this.click()
+        });
+
+        this.closeBtn.on("pointerdown", (event) => {
+            this.click()
+        });
+
+        this.visible = false;
+        this.show();
+    }
+
+    click() {
+        this.playBtn.disableInteractive();
+        this.closeBtn.disableInteractive();
+        this.hide();
+    }
+
+    show() {
+        if (this.visible) return;
+        this.visible = true;
+        this.alpha = 0;
+        this.frameGrp.alpha = 0;
+
+        this.scene.tweens.add({
+            targets: this,
+            alpha: { from: 0, to: 1 },
+            ease: "Linear",
+            duration: 200,
+            onComplete: () => {
+                this.scene.tweens.add({
+                    targets: this.frameGrp,
+                    alpha: { from: 0, to: 1 },
+                    y: { from: this.frameGrp.y - 500, to: this.frameGrp.y },
+                    ease: "Back.easeOut",
+                    duration: 200,
+                    onComplete: () => {
+                        setTimeout(() => {
+                            this.showTutorial();
+                            this.playBtn.setInteractive();
+                            this.closeBtn.setInteractive();
+
+                        }, 700);
+                    }
+                })
+            }
+        })
+    }
+
+    addTutorial() {
+
+        this.bottomUi = this.scene.add.sprite(0, 75, "sheet", 'ball_thrower/thrower_bg');
+        this.bottomUi.setOrigin(0.5);
+        this.bottomUi.setScale(1);
+        this.frameGrp.add(this.bottomUi);
+
+        this.redBall = this.scene.add.sprite(0, 20, "red");
+        this.redBall.setOrigin(0.5);
+        this.redBall.setScale(1);
+        this.frameGrp.add(this.redBall);
+
+        this.shooter = this.scene.add.sprite(0, 30, "sheet", 'ball_thrower/red');
+        this.shooter.setOrigin(0.5);
+        this.shooter.setScale(1);
+        this.frameGrp.add(this.shooter);
+
+        this.redBlock = this.scene.add.sprite(0, -275, "sheet", 'red');
+        this.redBlock.setOrigin(0.5);
+        this.redBlock.setScale(0.65);
+        this.frameGrp.add(this.redBlock);
+
+        this.yellowBlock = this.scene.add.sprite(0, -315, "sheet", 'yellow');
+        this.yellowBlock.setOrigin(0.5);
+        this.yellowBlock.setScale(0.65);
+        this.frameGrp.add(this.yellowBlock);
+    }
+
+    showTutorial() {
+        this.redBall.y = 20;
+        this.scene.tweens.add({
+            targets: this.shooter,
+            y: { from: this.shooter.y, to: this.shooter.y - 10 },
+            ease: "Linear",
+            duration: 100,
+            yoyo: true,
+        })
+        this.scene.tweens.add({
+            targets: this.redBall,
+            y: { from: this.redBall.y, to: this.redBlock.y },
+            ease: "Linear",
+            duration: 350,
+            onComplete: () => {
+                this.redBlock.visible = false;
+                this.redBall.visible = false;
+                this.scene.time.addEvent({
+                    delay: 600,
+                    callback: () => {
+                        this.shooter.setFrame("ball_thrower/yellow");
+                        this.redBall.visible = true;
+                        this.redBall.setTexture("yellow");
+                        this.redBall.y = 20;
+                        this.scene.tweens.add({
+                            targets: this.shooter,
+                            y: { from: this.shooter.y, to: this.shooter.y - 10 },
+                            ease: "Linear",
+                            duration: 100,
+                            yoyo: true,
+                        })
+                        this.scene.tweens.add({
+                            targets: this.redBall,
+                            y: { from: this.redBall.y, to: this.yellowBlock.y },
+                            ease: "Linear",
+                            duration: 350,
+                            onComplete: () => {
+                                this.yellowBlock.visible = false;
+                                this.redBall.visible = false;
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    }
+
+    hide() {
+        if (!this.visible) return;
+        this.scene.tweens.add({
+            targets: this,
+            alpha: 0,
+            ease: "Linear",
+            duration: 250,
+            onComplete: () => {
+                this.visible = false;
+                this.alpha = 1;
+                this.scene.gamePlay.show();
+            }
+        })
+    }
+
+    adjust() {
+        this.x = this.dimensions.gameWidth / 2;
+        this.y = this.dimensions.gameHeight / 2;
+
+        this.leftArrow.x = this.dimensions.leftOffset + 17 - this.x;
+        this.leftArrow.y = this.dimensions.gameHeight / 2 - 50 - this.y;
+
+        this.rightArrow.x = this.dimensions.rightOffset - 17 - this.x;
+        this.rightArrow.y = this.dimensions.gameHeight / 2 - 50 - this.y;
+
+        this.closeBtn.x = this.dimensions.leftOffset + 47 - this.x;
+        this.closeBtn.y = this.dimensions.bottomOffset - 47 - this.y;
+
+        this.playBtn.x = this.dimensions.rightOffset - 204 - this.x;
+        this.playBtn.y = this.dimensions.bottomOffset - 47 - this.y;
+
+        this.graphics.clear();
+        this.graphics = this.scene.make.graphics().fillStyle(0x000000, 0.65).fillRect(this.dimensions.leftOffset - this.x, this.dimensions.topOffset - this.y, this.dimensions.actualWidth, this.dimensions.actualHeight);
+        this.graphicsGrp.add(this.graphics);
+
+    }
+}

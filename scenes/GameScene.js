@@ -14,6 +14,8 @@ import config from '../config.js';
 import {
     GamePlay
 } from '../objects/game-play.js';
+import { Tutorial } from '../objects/tutorial.js';
+import { Count } from '../objects/count.js';
 
 let dimensions = {}
 export default class GameScene extends Phaser.Scene {
@@ -63,6 +65,9 @@ export default class GameScene extends Phaser.Scene {
         this.gamePlay = new GamePlay(this, 0, 0, this, dimensions);
         this.gameGroup.add(this.gamePlay);
 
+        this.tutorial = new Tutorial(this, 0, 0, this, dimensions);
+        this.gameGroup.add(this.tutorial);
+
         this.cta = new CTA(this, 0, 0, this);
         this.gameGroup.add(this.cta);
 
@@ -81,6 +86,14 @@ export default class GameScene extends Phaser.Scene {
 
     }
 
+    hideUI() {
+        this.tweens.add({
+            targets: [this.tutorial, this.gamePlay],
+            alpha: 0,
+            ease: "Linear",
+            duration: 250,
+        })
+    }
     restart(val) {
         window.restart = true;
         this.scene.restart()
@@ -202,11 +215,25 @@ export default class GameScene extends Phaser.Scene {
         this.bg.x = dimensions.gameWidth / 2;
         this.bg.y = dimensions.gameHeight / 2;
 
+        this.tutorial.adjust();
+
         this.gamePlay.x = dimensions.gameWidth / 2;
         this.gamePlay.y = dimensions.gameHeight / 2;
 
         this.cta.x = dimensions.gameWidth / 2;
         this.cta.y = dimensions.gameHeight / 2;
+
+        this.cta.bg.setScale(1);
+
+        scaleX = dimensions.actualWidth / this.cta.bg.displayWidth;
+        scaleY = dimensions.actualHeight / this.cta.bg.displayHeight;
+        scale = Math.max(scaleX, scaleY);
+
+        this.cta.bg.setScale(scale);
+
+        this.cta.bg.x = dimensions.gameWidth / 2 - this.cta.x;
+        this.cta.bg.y = dimensions.gameHeight / 2 - this.cta.y;
+
     }
 
     offsetMouse() {
