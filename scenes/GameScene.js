@@ -16,6 +16,7 @@ import {
 } from '../objects/game-play.js';
 import { Tutorial } from '../objects/tutorial.js';
 import { Count } from '../objects/count.js';
+import { Tutorial1 } from '../objects/tutorial1.js';
 
 let dimensions = {}
 export default class GameScene extends Phaser.Scene {
@@ -67,6 +68,9 @@ export default class GameScene extends Phaser.Scene {
 
         this.tutorial = new Tutorial(this, 0, 0, this, dimensions);
         this.gameGroup.add(this.tutorial);
+
+        this.tutorial1 = new Tutorial1(this, 0, 0, this, dimensions);
+        this.gameGroup.add(this.tutorial1);
 
         this.cta = new CTA(this, 0, 0, this);
         this.gameGroup.add(this.cta);
@@ -216,6 +220,7 @@ export default class GameScene extends Phaser.Scene {
         this.bg.y = dimensions.gameHeight / 2;
 
         this.tutorial.adjust();
+        this.tutorial1.adjust();
 
         this.gamePlay.x = dimensions.gameWidth / 2;
         this.gamePlay.y = dimensions.gameHeight / 2;
