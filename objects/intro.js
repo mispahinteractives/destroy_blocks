@@ -1,5 +1,5 @@
-import { Tutorial } from "./tutorial.js";
 import { Tutorial1 } from "./tutorial1.js";
+import { Tutorial2 } from "./tutorial2.js";
 
 export class Intro extends Phaser.GameObjects.Container {
     constructor(scene, x, y, gameScene, dimensions) {
@@ -41,44 +41,48 @@ export class Intro extends Phaser.GameObjects.Container {
         this.playBtn.setScale(1);
         this.add(this.playBtn);
 
-        this.tutorial1 = new Tutorial(this.scene, 0, 0, this, );
+        this.tutorial1 = new Tutorial1(this.scene, 0, 0, this, );
         this.add(this.tutorial1);
 
-        this.tutorial2 = new Tutorial1(this.scene, 0, 0, this, );
+        this.tutorial2 = new Tutorial2(this.scene, 0, 0, this, );
         this.add(this.tutorial2);
 
+        this.playBtn.setInteractive();
         this.playBtn.on("pointerdown", (event) => {
-            this.click()
+            this.hide()
         });
 
+        this.closeBtn.setInteractive();
         this.closeBtn.on("pointerdown", (event) => {
-            this.click()
+            this.hide()
         });
 
         this.rightArrow.setInteractive()
         this.rightArrow.on("pointerdown", (event) => {
-            this.click1(this.rightArrow)
+            this.click2(this.rightArrow)
         });
 
         this.leftArrow.setInteractive()
         this.leftArrow.on("pointerdown", (event) => {
-            this.click2(this.leftArrow)
+            this.click1(this.leftArrow)
         });
 
     }
 
     click1() {
-        if (this.level > 2) return;
-        this.level++;
-        this.tutorial2.show();
-        this.tutorial1.hide();
+        if (this.leftArrow.alpha == .5) return;
+        this.tutorial1.show();
+        this.tutorial1.stopTimer();
+        this.tutorial2.stopTimer();
+        this.tutorial2.hide();
     }
 
     click2() {
-        if (this.level < 1) return;
-        this.level++;
-        this.tutorial1.show();
-        this.tutorial2.hide();
+        if (this.rightArrow.alpha == .5) return;
+        this.tutorial2.show();
+        this.tutorial1.stopTimer();
+        this.tutorial2.stopTimer();
+        this.tutorial1.hide();
     }
 
     show() {
@@ -95,6 +99,21 @@ export class Intro extends Phaser.GameObjects.Container {
             onComplete: () => {
                 this.tutorial1.show()
 
+            }
+        })
+    }
+
+    hide() {
+        if (!this.visible) return;
+        this.visible = false;
+        this.scene.tweens.add({
+            targets: this,
+            alpha: { from: 1, to: 0 },
+            ease: "Linear",
+            duration: 200,
+            onComplete: () => {
+                this.visible = false;
+                this.scene.gamePlay.show();
             }
         })
     }

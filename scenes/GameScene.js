@@ -14,9 +14,6 @@ import config from '../config.js';
 import {
     GamePlay
 } from '../objects/game-play.js';
-import { Tutorial } from '../objects/tutorial.js';
-import { Count } from '../objects/count.js';
-import { Tutorial1 } from '../objects/tutorial1.js';
 import { Intro } from '../objects/intro.js';
 
 let dimensions = {}
