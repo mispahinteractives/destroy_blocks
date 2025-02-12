@@ -112,6 +112,8 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
                 this.x = 0
                 this.scene.intro.leftArrow.alpha = 1
                 this.scene.intro.rightArrow.alpha = .5
+                this.shooter.setFrame("ball_thrower/red");
+                this.redBall.setTexture("red");
             }
         })
     }
@@ -186,6 +188,8 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
     }
 
     showredBall() {
+
+        this.hand.visible = true;
         this.handTween()
         setTimeout(() => {
             this.redBall.visible = true;

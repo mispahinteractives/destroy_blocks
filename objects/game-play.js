@@ -46,14 +46,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
     show() {
         if (this.visible) return;
         this.visible = true;
-    }
 
-    startGame() {
-        if (this.gameStarted) return;
-        this.gameStarted = true;
-        console.log("klkl");
-        this.createBlocks();
-        this.createSmallCircle();
         this.blockLoop = this.scene.time.addEvent({
             delay: this.blockSpeed,
             callback: this.createBlocks,
@@ -120,6 +113,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
             // console.log(`Speed Increased! Block Speed: ${this.blockSpeed}, Ball Speed: ${this.ballSpeed}`);
         }
     }
+
 
     createSmallCircle() {
         const centerX = 0;
@@ -243,22 +237,10 @@ export class GamePlay extends Phaser.GameObjects.Container {
         this.shooter.setOrigin(0.5);
         this.add(this.shooter);
 
-        this.hand = this.scene.add.sprite(-40, 380, "sheet", "hand");
-        this.hand.setOrigin(0);
-        this.hand.angle = -30
-        this.add(this.hand);
-
-        // hand scale tween
-
-        this.handTween = this.scene.tweens.add({
-            targets: this.hand,
-            scale: { from: this.hand.scaleX, to: this.hand.scaleX - .1 },
-            y: { from: this.hand.y, to: this.hand.y - 10 },
-            duration: this.ballSpeed / 2,
-            repeat: -1,
-            yoyo: true,
-            ease: 'Linear'
-        });
+        // this.hand = this.scene.add.sprite(50, 395, "sheet", "hand");
+        // this.hand.setOrigin(0.5);
+        // this.hand.angle = -30
+        // this.add(this.hand);
 
         this.shooter.type = this.currentColorType;
 
@@ -269,8 +251,6 @@ export class GamePlay extends Phaser.GameObjects.Container {
     }
 
     onShooterClick() {
-        this.startGame();
-        this.hand.visible = false;
         if (this.shooter.type == "yellow") {
             this.shooter.setFrame("ball_thrower/red")
             this.circleArr.forEach(element => {

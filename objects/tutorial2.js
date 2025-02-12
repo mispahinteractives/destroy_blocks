@@ -88,8 +88,12 @@ export class Tutorial2 extends Phaser.GameObjects.Container {
             ease: "Linear",
             duration: 250,
             onComplete: () => {
+                this.redBlock.y = -275;
+                this.yellowBlock.y = -315;
                 this.visible = false;
                 this.x = 0;
+                this.shooter.setFrame("ball_thrower/red");
+                this.redBall.setTexture("red");
                 // this.scene.gamePlay.show()
             }
         })
@@ -123,6 +127,7 @@ export class Tutorial2 extends Phaser.GameObjects.Container {
         this.yellowBlock.setScale(0.65);
         this.frameGrp.add(this.yellowBlock);
         this.yellowBlock.visible = false;
+
     }
 
     handTween() {
@@ -151,15 +156,38 @@ export class Tutorial2 extends Phaser.GameObjects.Container {
         this.redBall.y = 20;
         setTimeout(() => {
             this.scene.tweens.add({
+                targets: this.yellowBlock,
+                y: { from: this.yellowBlock.y, to: this.redBlock.y },
+                ease: "Linear",
+                duration: 350,
+            })
+            this.scene.tweens.add({
+                targets: this.redBlock,
+                y: { from: this.redBlock.y, to: this.redBlock.y + 40 },
+                ease: "Linear",
+                duration: 350,
+                onComplete: () => {
+                    setTimeout(() => {
+                        this.scene.tweens.add({
+                            targets: this.yellowBlock,
+                            y: { from: this.yellowBlock.y, to: this.redBlock.y },
+                            ease: "Linear",
+                            duration: 350,
+                        })
+                    }, 1400);
+                }
+            })
+            this.scene.tweens.add({
                 targets: this.shooter,
                 y: { from: this.shooter.y, to: this.shooter.y - 10 },
                 ease: "Linear",
                 duration: 100,
                 yoyo: true,
             })
+            this.redBall.visible = true;
             this.scene.tweens.add({
                 targets: this.redBall,
-                y: { from: this.redBall.y, to: this.redBlock.y },
+                y: { from: this.redBall.y, to: this.redBlock.y + 40 },
                 ease: "Linear",
                 duration: 350,
                 onComplete: () => {
@@ -183,7 +211,7 @@ export class Tutorial2 extends Phaser.GameObjects.Container {
                                 })
                                 this.scene.tweens.add({
                                     targets: this.redBall,
-                                    y: { from: this.redBall.y, to: this.yellowBlock.y },
+                                    y: { from: this.redBall.y, to: this.yellowBlock.y + 40 },
                                     ease: "Linear",
                                     duration: 350,
                                     onComplete: () => {
