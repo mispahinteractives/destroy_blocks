@@ -71,18 +71,20 @@ export class Intro extends Phaser.GameObjects.Container {
 
     click1() {
         if (this.leftArrow.alpha == .5) return;
-        this.tutorial1.show();
+        this.tutorial2.hide();
+        this.tutorial1.hide();
         this.tutorial1.stopTimer();
         this.tutorial2.stopTimer();
-        this.tutorial2.hide();
+        this.tutorial1.show();
     }
 
     click2() {
         if (this.rightArrow.alpha == .5) return;
-        this.tutorial2.show();
+        this.tutorial2.hide();
+        this.tutorial1.hide();
         this.tutorial1.stopTimer();
         this.tutorial2.stopTimer();
-        this.tutorial1.hide();
+        this.tutorial2.show();
     }
 
     show() {
