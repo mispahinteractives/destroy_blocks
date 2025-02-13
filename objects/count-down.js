@@ -34,6 +34,27 @@ export class CountDown extends Phaser.GameObjects.Container {
     updateCount(){
         this.visible = true;
         // this.sounds("countdown").play()
+        this.scene.tweens.add({
+            targets: this.graphics,
+            scale: {from: 0 , to: this.graphics.scaleX},
+            duration: 300,
+            ease: 'Power2',
+            onComplete: () => {
+                
+               
+            }
+        });
+        
+        this.scene.tweens.add({
+            targets: this.text,
+            scale: {from: 0 , to: this.text.scaleX},
+            duration: 300,
+            ease: 'Power2',
+            onComplete: () => {
+                
+                
+            }
+        });
         this.scene.sound.play('countdown', { volume: 1 })
         this.scene.time.addEvent({
             delay: 1000,
