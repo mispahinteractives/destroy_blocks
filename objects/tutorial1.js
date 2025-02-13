@@ -95,12 +95,14 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
         this.scene.intro.rightArrow.alpha = 1
 
         this.visible = true;
+        this.runTween = true;
         this.showTween = this.scene.tweens.add({
             targets: this,
             x: { from: this.x - 400, to: this.x },
             ease: "Linear",
             duration: 250,
             onComplete: () => {
+                this.runTween = false;
                 this.showTutorial();
             }
         })
@@ -108,12 +110,14 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
 
     hide() {
         if (!this.visible) return;
+        this.runTween = true;
         this.hideTween = this.scene.tweens.add({
             targets: this,
             x: { from: this.x, to: this.x - 400 },
             ease: "Linear",
             duration: 250,
             onComplete: () => {
+                this.runTween = false;
                 this.visible = false;
                 this.x = 0
                 this.scene.intro.leftArrow.alpha = 1

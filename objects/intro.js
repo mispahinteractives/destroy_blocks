@@ -71,6 +71,7 @@ export class Intro extends Phaser.GameObjects.Container {
 
     click1() {
         if (this.leftArrow.alpha == .5) return;
+        if (this.tutorial1.runTween || this.tutorial2.runTween) return
         this.tutorial2.hide();
         this.tutorial1.hide();
         this.tutorial1.stopTimer();
@@ -80,6 +81,7 @@ export class Intro extends Phaser.GameObjects.Container {
 
     click2() {
         if (this.rightArrow.alpha == .5) return;
+        if (this.tutorial1.runTween || this.tutorial2.runTween) return
         this.tutorial2.hide();
         this.tutorial1.hide();
         this.tutorial1.stopTimer();
