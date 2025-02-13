@@ -117,6 +117,7 @@ export class Intro extends Phaser.GameObjects.Container {
             duration: 200,
             onComplete: () => {
                 this.visible = false;
+                this.scene.countDown.updateCount();
                 this.scene.gamePlay.show();
             }
         })

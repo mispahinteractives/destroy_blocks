@@ -42,7 +42,8 @@ export default class Preload extends Phaser.Scene {
         this.load.plugin('rextagtextplugin', 'lib/rextagtextplugin.min.js', true);
         // this.load.audio('bgm','sounds/bgm.mp3');
         // this.load.audio('win','sounds/win.mp3');
-        // this.load.audio('loss','sounds/loss.mp3');
+        this.load.audio('countdown','sounds/countdown.mp3');
+        this.load.audio('break','sounds/break.mp3');
 
         //---------------------------------------------------------------------->
 

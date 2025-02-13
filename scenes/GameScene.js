@@ -15,6 +15,7 @@ import {
     GamePlay
 } from '../objects/game-play.js';
 import { Intro } from '../objects/intro.js';
+import { CountDown } from '../objects/count-down.js';
 
 let dimensions = {}
 export default class GameScene extends Phaser.Scene {
@@ -66,6 +67,9 @@ export default class GameScene extends Phaser.Scene {
 
         this.intro = new Intro(this, 0, 0, this, dimensions);
         this.gameGroup.add(this.intro);
+
+        this.countDown = new CountDown(this, 0, 0, this, this.dimensions)
+        this.gameGroup.add(this.countDown);
 
         // this.tutorial1 = new Tutorial1(this, 0, 0, this, dimensions);
         // this.gameGroup.add(this.tutorial1);
@@ -236,6 +240,9 @@ export default class GameScene extends Phaser.Scene {
 
         this.cta.bg.x = dimensions.gameWidth / 2 - this.cta.x;
         this.cta.bg.y = dimensions.gameHeight / 2 - this.cta.y;
+
+        this.countDown.x = dimensions.gameWidth / 2;
+        this.countDown.y = dimensions.gameHeight / 2 ;
 
     }
 

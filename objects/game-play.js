@@ -48,6 +48,13 @@ export class GamePlay extends Phaser.GameObjects.Container {
     show() {
         if (this.visible) return;
         this.visible = true;
+    }
+
+    startGame(){
+        this.gameStarted = true;
+        this.hand.visible = false;
+        this.createBlocks();
+        this.createSmallCircle();
 
         this.blockLoop = this.scene.time.addEvent({
             delay: this.blockSpeed,
@@ -198,6 +205,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
 
             circle.destroy();
             block.destroy();
+            this.scene.sound.play('break', { volume: .8 })
 
             this.score++;
             this.scoreText.setText(this.score);
@@ -239,10 +247,22 @@ export class GamePlay extends Phaser.GameObjects.Container {
         this.shooter.setOrigin(0.5);
         this.add(this.shooter);
 
-        // this.hand = this.scene.add.sprite(50, 395, "sheet", "hand");
-        // this.hand.setOrigin(0.5);
-        // this.hand.angle = -30
-        // this.add(this.hand);
+        this.hand = this.scene.add.sprite(70, 440, "sheet", "hand");
+        this.hand.setOrigin(0.5);
+        this.hand.angle = -40
+        this.add(this.hand);
+
+        this.scene.tweens.add({
+            targets: this.hand,
+            scale: { from: this.hand.scale, to: this.hand.scale - 0.1 },
+            ease: "Linear",
+            duration: 700,
+            yoyo: true,
+            repeat: -1,
+            onComplete: () => {
+                // this.hand.visible = false;
+            }
+        })
 
         this.shooter.type = this.currentColorType;
 
@@ -253,6 +273,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
     }
 
     onShooterClick() {
+        if(!this.gameStarted)return
         if (this.shooter.type == "yellow") {
             this.shooter.setFrame("ball_thrower/red")
             this.circleArr.forEach(element => {
