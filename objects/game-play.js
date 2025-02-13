@@ -35,6 +35,8 @@ export class GamePlay extends Phaser.GameObjects.Container {
             fontFamily: "Arial",
             fontSize: "40px",
             color: "#ffffff",
+            stroke: "#c00b00",
+            strokeThickness: 5,
         })
         this.scoreText.setOrigin(0, 0.5);
         this.add(this.scoreText);
