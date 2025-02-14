@@ -46,7 +46,8 @@ export class CTA extends Phaser.GameObjects.Container {
     ctaClick(sprite) {
         if (this.done) return;
         sprite.disableInteractive();
-        onCTAClick();
+        this.scene.restart();
+        // onCTAClick();
         this.done = true;
         this.scene.time.addEvent({
             delay: 10000,

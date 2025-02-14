@@ -87,7 +87,7 @@ export default class GameScene extends Phaser.Scene {
         this.gameResized();
 
         if (window.restart) {
-            this.startGameplay()
+            // this.startGameplay()
         }
 
     }
@@ -103,7 +103,6 @@ export default class GameScene extends Phaser.Scene {
     restart(val) {
         window.restart = true;
         this.scene.restart()
-        this.control.hand.visible = false;
     }
 
     destroySounds() {
@@ -242,7 +241,7 @@ export default class GameScene extends Phaser.Scene {
         this.cta.bg.y = dimensions.gameHeight / 2 - this.cta.y;
 
         this.countDown.x = dimensions.gameWidth / 2;
-        this.countDown.y = dimensions.gameHeight / 2 ;
+        this.countDown.y = dimensions.gameHeight / 2;
 
     }
 
