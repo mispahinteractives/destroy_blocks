@@ -50,7 +50,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
         this.visible = true;
     }
 
-    startGame(){
+    startGame() {
         this.gameStarted = true;
         this.hand.visible = false;
         this.createBlocks();
@@ -273,7 +273,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
     }
 
     onShooterClick() {
-        if(!this.gameStarted)return
+        if (!this.gameStarted) return
         if (this.shooter.type == "yellow") {
             this.shooter.setFrame("ball_thrower/red")
             this.circleArr.forEach(element => {
