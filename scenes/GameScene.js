@@ -220,11 +220,10 @@ export default class GameScene extends Phaser.Scene {
         this.bg.x = dimensions.gameWidth / 2;
         this.bg.y = dimensions.gameHeight / 2;
 
-        // this.tutorial.adjust();
         this.intro.adjust();
 
         this.gamePlay.x = dimensions.gameWidth / 2;
-        this.gamePlay.y = dimensions.gameHeight / 2;
+        this.gamePlay.y = dimensions.bottomOffset - 480;
 
         this.cta.x = dimensions.gameWidth / 2;
         this.cta.y = dimensions.gameHeight / 2;

@@ -27,8 +27,9 @@ export class GamePlay extends Phaser.GameObjects.Container {
         this.score = 0;
 
         this.currentColorType = this.colors[0];
-
-        this.createBlocks();
+        for (let i = 0; i < 4; i++) {
+            this.createBlocks();
+        }
         this.addShooter();
 
         this.scoreText = this.scene.add.text(-230, 340, this.score, {
@@ -53,6 +54,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
     startGame() {
         this.gameStarted = true;
         this.hand.visible = false;
+
         this.createBlocks();
         this.createSmallCircle();
 
@@ -84,7 +86,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
             const lastBlock = this.blocksArr[this.blocksArr.length - 1];
             y = lastBlock.y;
         } else {
-            y = -440;
+            y = -655;
         }
 
         for (let i = 0; i < this.blocksArr.length; i++) {
