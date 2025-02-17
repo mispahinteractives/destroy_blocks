@@ -32,7 +32,17 @@ export class GamePlay extends Phaser.GameObjects.Container {
         }
         this.addShooter();
 
-        this.scoreText = this.scene.add.text(-230, 340, this.score, {
+        this.text = this.scene.add.text(-230, 350, this.scene.text.texts[0].score, {
+            fontFamily: "Arial",
+            fontSize: "40px",
+            color: "#ffffff",
+            stroke: "#c00b00",
+            strokeThickness: 5,
+        })
+        this.text.setOrigin(0, 0.5);
+        this.add(this.text);
+
+        this.scoreText = this.scene.add.text(-230, 400, this.score, {
             fontFamily: "Arial",
             fontSize: "40px",
             color: "#ffffff",
@@ -41,6 +51,10 @@ export class GamePlay extends Phaser.GameObjects.Container {
         })
         this.scoreText.setOrigin(0, 0.5);
         this.add(this.scoreText);
+
+        this.line = this.scene.add.sprite(0, 290, "sheet", "line");
+        this.line.setOrigin(0.5).setScale(1);
+        this.add(this.line);
 
         this.visible = false;
         // this.show();
@@ -106,7 +120,9 @@ export class GamePlay extends Phaser.GameObjects.Container {
             if (this.circleLoop) this.circleLoop.remove();
             this.gameOver = true;
             console.log("Game Over!");
-            this.scene.cta.show();
+            setTimeout(() => {
+                this.scene.cta.show();
+            }, 250);
         }
     }
 
