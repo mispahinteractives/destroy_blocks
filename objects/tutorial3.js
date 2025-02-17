@@ -25,7 +25,7 @@ export class Tutorial3 extends Phaser.GameObjects.Container {
 
         this.tutorialText = this.scene.add.text(0, 305, this.scene.text.texts[0].tuto3, {
             fontFamily: "UberMoveMedium",
-            fontSize: 35,
+            fontSize: 30,
             fill: "#ffffff",
             align: "center",
         })
@@ -35,7 +35,7 @@ export class Tutorial3 extends Phaser.GameObjects.Container {
 
         this.circleArr = [];
 
-        let startX = -11;
+        let startX = -22;
         let startY = 140;
         for (let i = 0; i < 3; i++) {
 
@@ -128,6 +128,8 @@ export class Tutorial3 extends Phaser.GameObjects.Container {
             ease: "Linear",
             duration: 250,
             onComplete: () => {
+                this.scene.intro.leftArrow.alpha = 1
+                this.scene.intro.rightArrow.alpha = .5
                 this.tutorialText.visible = false
                 this.runTween = false;
                 this.redBlock.y = -275;

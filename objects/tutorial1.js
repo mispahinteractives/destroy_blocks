@@ -20,9 +20,9 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
         this.frame.setScale(1);
         this.frameGrp.add(this.frame);
 
-        this.tutorialText = this.scene.add.text(0, 305, this.scene.text.texts[0].tuto1, {
+        this.tutorialText = this.scene.add.text(0, 290, this.scene.text.texts[0].tuto1, {
             fontFamily: "UberMoveMedium",
-            fontSize: 35,
+            fontSize: 30,
             fill: "#ffffff",
             align: "center",
         })
@@ -32,9 +32,9 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
 
         this.circleArr = [];
 
-        let startX = -11;
+        let startX = -22;
         let startY = 140;
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < 3; i++) {
 
             let blueCircle = this.scene.add.sprite(startX, startY, "sheet", "tutorial/4");
             blueCircle.setOrigin(0.5);
@@ -54,7 +54,7 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
         }
 
         this.circleArr[1].whiteCircle.visible = false;
-        // this.circleArr[2].whiteCircle.visible = false;
+        this.circleArr[2].whiteCircle.visible = false;
 
         this.addTutorial();
 
@@ -140,8 +140,6 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
                 this.runTween = false;
                 this.visible = false;
                 this.x = 0
-                this.scene.intro.leftArrow.alpha = 1
-                this.scene.intro.rightArrow.alpha = .5
                 this.shooter.setFrame("ball_thrower/red");
                 this.redBall.setTexture("red");
             }

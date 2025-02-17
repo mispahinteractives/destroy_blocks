@@ -22,7 +22,7 @@ export class Tutorial2 extends Phaser.GameObjects.Container {
 
         this.tutorialText = this.scene.add.text(0, 305, this.scene.text.texts[0].tuto2, {
             fontFamily: "UberMoveMedium",
-            fontSize: 35,
+            fontSize: 30,
             fill: "#ffffff",
             align: "center",
         })
@@ -32,9 +32,9 @@ export class Tutorial2 extends Phaser.GameObjects.Container {
 
         this.circleArr = [];
 
-        let startX = -11;
+        let startX = -22;
         let startY = 140;
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < 3; i++) {
 
             let blueCircle = this.scene.add.sprite(startX, startY, "sheet", "tutorial/4");
             blueCircle.setOrigin(0.5);
@@ -54,6 +54,7 @@ export class Tutorial2 extends Phaser.GameObjects.Container {
         }
 
         this.circleArr[0].whiteCircle.visible = false;
+        this.circleArr[2].whiteCircle.visible = false;
 
         this.addTutorial();
 
@@ -120,7 +121,7 @@ export class Tutorial2 extends Phaser.GameObjects.Container {
         this.runTween = true;
         this.hideTween = this.scene.tweens.add({
             targets: this,
-            x: { from: this.x, to: this.x + 400 },
+            x: { from: this.x, to: this.x - 400 },
             ease: "Linear",
             duration: 250,
             onComplete: () => {
@@ -266,7 +267,7 @@ export class Tutorial2 extends Phaser.GameObjects.Container {
                                                     delay: 1000,
                                                     callback: () => {
                                                         this.hide();
-                                                        this.scene.intro.tutorial1.show()
+                                                        this.scene.intro.tutorial3.show()
                                                     }
                                                 })
                                             }
