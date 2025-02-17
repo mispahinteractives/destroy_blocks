@@ -18,13 +18,9 @@ export default class Preload extends Phaser.Scene {
 
         var sheet = element.sheet;
 
-        var styles1 = '@font-face { font-family: "PepsiOwners_Regular"; src: url("fonts/PepsiOwners_Regular.ttf") format("truetype"); }\n';
-        var styles2 = '@font-face { font-family: "PepsiOwners_Extended"; src: url("fonts/PepsiOwners_Extended.ttf") format("truetype"); }\n';
-        var styles3 = '@font-face { font-family: "UberMoveMedium"; src: url("fonts/UberMoveMedium.otf") format("opentype"); }\n';
+        var styles1 = '@font-face { font-family: "Flame_Regular"; src: url("fonts/Flame_Regular.ttf") format("truetype"); }\n';
 
         sheet.insertRule(styles1, 0);
-        sheet.insertRule(styles2, 0);
-        sheet.insertRule(styles3, 0);
 
     }
 
@@ -42,8 +38,8 @@ export default class Preload extends Phaser.Scene {
         this.load.plugin('rextagtextplugin', 'lib/rextagtextplugin.min.js', true);
         // this.load.audio('bgm','sounds/bgm.mp3');
         // this.load.audio('win','sounds/win.mp3');
-        this.load.audio('countdown','sounds/countdown.mp3');
-        this.load.audio('break','sounds/break.mp3');
+        this.load.audio('countdown', 'sounds/countdown.mp3');
+        this.load.audio('break', 'sounds/break.mp3');
 
         //---------------------------------------------------------------------->
 
@@ -72,7 +68,7 @@ export default class Preload extends Phaser.Scene {
         WebFont.load({
 
             custom: {
-                families: ['PepsiOwners_Regular', 'PepsiOwners_Extended', 'UberMoveMedium']
+                families: ['Flame_Regular']
 
             },
             active: function() {

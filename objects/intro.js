@@ -4,7 +4,6 @@ import { Tutorial3 } from "./tutorial3.js";
 
 export class Intro extends Phaser.GameObjects.Container {
     constructor(scene, x, y, gameScene, dimensions) {
-
         super(scene);
         this.scene = scene;
         this.x = x;
@@ -16,81 +15,84 @@ export class Intro extends Phaser.GameObjects.Container {
     }
 
     init() {
+        this.level = 0;
         this.graphicsGrp = this.scene.add.container(0, 0);
         this.add(this.graphicsGrp);
 
-        this.graphics = this.scene.make.graphics().fillStyle(0x000000, 1).fillRect(this.dimensions.leftOffset, this.dimensions.topOffset, this.dimensions.actualWidth, this.dimensions.actualHeight);
+        this.graphics = this.scene.make.graphics()
+            .fillStyle(0x000000, 1)
+            .fillRect(this.dimensions.leftOffset, this.dimensions.topOffset, this.dimensions.actualWidth, this.dimensions.actualHeight);
         this.graphicsGrp.add(this.graphics);
 
         this.leftArrow = this.scene.add.sprite(0, 0, "sheet", 'tutorial/2');
-        this.leftArrow.setOrigin(0.5);
-        this.leftArrow.setScale(1);
+        this.leftArrow.setOrigin(0.5).setScale(1).setAlpha(0.5);
         this.add(this.leftArrow);
 
         this.rightArrow = this.scene.add.sprite(0, 0, "sheet", "tutorial/1");
-        this.rightArrow.setOrigin(0.5);
-        this.rightArrow.setScale(1);
+        this.rightArrow.setOrigin(0.5).setScale(1);
         this.add(this.rightArrow);
 
         this.closeBtn = this.scene.add.sprite(0, 0, "sheet", 'tutorial/close');
-        this.closeBtn.setOrigin(0.5);
-        this.closeBtn.setScale(1);
+        this.closeBtn.setOrigin(0.5).setScale(1);
         this.add(this.closeBtn);
 
         this.playBtn = this.scene.add.sprite(0, 0, "sheet", 'tutorial/play');
-        this.playBtn.setOrigin(0.5);
-        this.playBtn.setScale(1);
+        this.playBtn.setOrigin(0.5).setScale(1);
         this.add(this.playBtn);
 
-        this.tutorial1 = new Tutorial1(this.scene, 0, 0, this, );
+        this.tutorial1 = new Tutorial1(this.scene, 0, 0, this);
         this.add(this.tutorial1);
-
-        this.tutorial2 = new Tutorial2(this.scene, 0, 0, this, );
+        this.tutorial2 = new Tutorial2(this.scene, 0, 0, this);
         this.add(this.tutorial2);
-
-        this.tutorial3 = new Tutorial3(this.scene, 0, 0, this, );
+        this.tutorial3 = new Tutorial3(this.scene, 0, 0, this);
         this.add(this.tutorial3);
 
-        this.playBtn.setInteractive();
-        this.playBtn.on("pointerdown", (event) => {
-            this.hide()
+        this.playBtn.setInteractive().on("pointerdown", () => this.hide());
+        this.closeBtn.setInteractive().on("pointerdown", () => this.hide());
+        this.rightArrow.setInteractive().on("pointerdown", () => {
+            if (this.rightArrow.alpha === 0.5) return;
+            this.changeTutorial(1);
         });
-
-        this.closeBtn.setInteractive();
-        this.closeBtn.on("pointerdown", (event) => {
-            this.hide()
+        this.leftArrow.setInteractive().on("pointerdown", () => {
+            if (this.leftArrow.alpha === 0.5) return;
+            this.changeTutorial(-1);
         });
-
-        this.rightArrow.setInteractive()
-        this.rightArrow.on("pointerdown", (event) => {
-            this.click2(this.rightArrow)
-        });
-
-        this.leftArrow.setInteractive()
-        this.leftArrow.on("pointerdown", (event) => {
-            this.click1(this.leftArrow)
-        });
-
     }
 
-    click1() {
-        if (this.leftArrow.alpha == .5) return;
-        if (this.tutorial1.runTween || this.tutorial2.runTween) return
-        this.tutorial2.hide();
-        this.tutorial1.hide();
-        this.tutorial1.stopTimer();
-        this.tutorial2.stopTimer();
-        this.tutorial1.show();
-    }
+    changeTutorial(direction) {
+        if (this.tutorial1.runTween || this.tutorial2.runTween || this.tutorial3.runTween) return;
 
-    click2() {
-        if (this.rightArrow.alpha == .5) return;
-        if (this.tutorial1.runTween || this.tutorial2.runTween) return
-        this.tutorial2.hide();
-        this.tutorial1.hide();
         this.tutorial1.stopTimer();
         this.tutorial2.stopTimer();
-        this.tutorial2.show();
+        this.tutorial3.stopTimer();
+
+        let currentTutorial = this[`tutorial${this.level + 1}`];
+        let nextLevel = (this.level + direction + 3) % 3;
+        let nextTutorial = this[`tutorial${nextLevel + 1}`];
+
+        this.scene.tweens.add({
+            targets: currentTutorial,
+            x: direction > 0 ? -500 : 500,
+            ease: "Cubic.easeOut",
+            duration: 300,
+            onComplete: () => {
+                currentTutorial.hide();
+                currentTutorial.x = 500;
+            }
+        });
+
+        nextTutorial.x = direction > 0 ? 500 : -500;
+        nextTutorial.show();
+        this.scene.tweens.add({
+            targets: nextTutorial,
+            x: 0,
+            ease: "Cubic.easeIn",
+            duration: 300
+        });
+
+        this.level = nextLevel;
+        this.leftArrow.setAlpha(this.level === 0 ? 0.5 : 1);
+        this.rightArrow.setAlpha(this.level === 2 ? 0.5 : 1);
     }
 
     show() {
@@ -105,10 +107,9 @@ export class Intro extends Phaser.GameObjects.Container {
             ease: "Linear",
             duration: 200,
             onComplete: () => {
-                this.tutorial1.show()
-
+                this.tutorial1.show();
             }
-        })
+        });
     }
 
     hide() {
@@ -124,7 +125,7 @@ export class Intro extends Phaser.GameObjects.Container {
                 this.scene.countDown.updateCount();
                 this.scene.gamePlay.show();
             }
-        })
+        });
     }
 
     adjust() {
