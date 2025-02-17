@@ -1,4 +1,4 @@
-export class Tutorial1 extends Phaser.GameObjects.Container {
+export class Tutorial3 extends Phaser.GameObjects.Container {
     constructor(scene, x, y, gameScene, dimensions) {
 
         super(scene);
@@ -12,6 +12,9 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
     }
 
     init() {
+
+        this.blocksArr = [];
+
         this.frameGrp = this.scene.add.container(0, 0);
         this.add(this.frameGrp);
 
@@ -20,7 +23,7 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
         this.frame.setScale(1);
         this.frameGrp.add(this.frame);
 
-        this.tutorialText = this.scene.add.text(0, 305, this.scene.text.texts[0].tuto1, {
+        this.tutorialText = this.scene.add.text(0, 305, this.scene.text.texts[0].tuto3, {
             fontFamily: "UberMoveMedium",
             fontSize: 35,
             fill: "#ffffff",
@@ -34,7 +37,7 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
 
         let startX = -11;
         let startY = 140;
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < 3; i++) {
 
             let blueCircle = this.scene.add.sprite(startX, startY, "sheet", "tutorial/4");
             blueCircle.setOrigin(0.5);
@@ -53,8 +56,8 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
 
         }
 
+        this.circleArr[0].whiteCircle.visible = false;
         this.circleArr[1].whiteCircle.visible = false;
-        // this.circleArr[2].whiteCircle.visible = false;
 
         this.addTutorial();
 
@@ -63,18 +66,18 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
         this.hand.setScale(1);
         this.hand.angle = -25;
         this.add(this.hand);
-        this.hand.alpha = 0;
+        this.hand.visible = false;
 
         this.visible = false;
-
-        setTimeout(() => {
-            this.show();
-        }, 20);
+        // this.show();
     }
 
     stopTimer() {
         if (this.timer1) {
             this.scene.time.removeEvent(this.timer1);
+        }
+        if (this.handTimer) {
+            this.scene.time.removeEvent(this.handTimer);
         }
         if (this.timer2) {
             this.scene.time.removeEvent(this.timer2);
@@ -85,30 +88,19 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
         if (this.timer4) {
             this.scene.time.removeEvent(this.timer4);
         }
-
-        // this.stopTween();
-    }
-
-    stopTween() {
-        if (this.showTween) {
-            this.showTween.stop();
-            this.showTween = "";
-        }
-        if (this.hideTween) {
-            this.hideTween.stop();
-            this.hideTween = "";
+        if (this.timer5) {
+            this.scene.time.removeEvent(this.timer5);
         }
     }
 
     show() {
-        this.scene.intro.leftArrow.alpha = .5
-        this.scene.intro.rightArrow.alpha = 1
-
+        if (this.visible) return;
         this.visible = true;
+        // this.frameGrp.alpha = 0;
         this.runTween = true;
         this.showTween = this.scene.tweens.add({
             targets: this,
-            x: { from: this.x - 400, to: this.x },
+            x: { from: this.x + 400, to: this.x },
             ease: "Linear",
             duration: 250,
             onComplete: () => {
@@ -120,9 +112,9 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
                     duration: 250,
                     onComplete: () => {
                         this.runTween = false;
-                        this.showTutorial();
+                        this.showTutorial2();
                     }
-                });
+                })
             }
         })
     }
@@ -132,18 +124,19 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
         this.runTween = true;
         this.hideTween = this.scene.tweens.add({
             targets: this,
-            x: { from: this.x, to: this.x - 400 },
+            x: { from: this.x, to: this.x + 400 },
             ease: "Linear",
             duration: 250,
             onComplete: () => {
-                this.tutorialText.visible = false;
+                this.tutorialText.visible = false
                 this.runTween = false;
+                this.redBlock.y = -275;
+                this.yellowBlock.y = -315;
                 this.visible = false;
-                this.x = 0
-                this.scene.intro.leftArrow.alpha = 1
-                this.scene.intro.rightArrow.alpha = .5
+                this.x = 0;
                 this.shooter.setFrame("ball_thrower/red");
                 this.redBall.setTexture("red");
+                // this.scene.gamePlay.show()
             }
         })
     }
@@ -165,6 +158,21 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
         this.shooter.setScale(1);
         this.frameGrp.add(this.shooter);
 
+        let startX = 0;
+        let startY = -135;
+        let path = ["red", "yellow", "red", "yellow", "red", "yellow"];
+        for (let i = 0; i < 6; i++) {
+
+            let blocks = this.scene.add.sprite(startX, startY, "sheet", path[i]);
+            blocks.setOrigin(0.5);
+            blocks.setScale(0.65);
+            this.frameGrp.add(blocks);
+
+            this.blocksArr.push(blocks);
+
+            startY -= 40;
+
+        }
         this.redBlock = this.scene.add.sprite(0, -275, "sheet", 'red');
         this.redBlock.setOrigin(0.5);
         this.redBlock.setScale(0.65);
@@ -176,15 +184,14 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
         this.yellowBlock.setScale(0.65);
         this.frameGrp.add(this.yellowBlock);
         this.yellowBlock.visible = false;
+
     }
 
     handTween() {
-        this.scene.tweens.add({
-            targets: this.hand,
-            alpha: 1,
-            ease: "Linear",
-            duration: 250,
-            onComplete: () => {
+        this.handTimer = this.scene.time.addEvent({
+            delay: 100,
+            callback: () => {
+                this.hand.visible = true;
                 this.scene.tweens.add({
                     targets: this.hand,
                     scale: { from: this.hand.scale, to: this.hand.scale - 0.1 },
@@ -192,43 +199,46 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
                     duration: 250,
                     yoyo: true,
                     onComplete: () => {
-                        // this.hand.visible = false;
-                    }
-                })
-            }
-        })
-    }
-
-    showTutorial() {
-        this.showredBall();
-        this.timer4 = this.scene.time.addEvent({
-            delay: 1500,
-            callback: () => {
-                this.showYellowBall();
-                this.timer1 = this.scene.time.addEvent({
-                    delay: 1000,
-                    callback: () => {
                         this.hand.visible = false;
-                        this.hide();
-                        this.scene.intro.tutorial2.show()
                     }
                 })
             }
         })
     }
 
-    showredBall() {
-
-        this.hand.visible = true;
+    showTutorial2() {
         this.handTween()
+            // this.redBlock.visible = true;
+            // this.yellowBlock.visible = true;
+        this.redBall.y = 20;
         this.timer2 = this.scene.time.addEvent({
             delay: 350,
             callback: () => {
-                this.redBall.visible = true;
-                this.shooter.setFrame("ball_thrower/red");
-                this.redBall.visible = true;
-                this.redBall.setTexture("red");
-                this.redBall.y = 20;
+                this.scene.tweens.add({
+                    targets: this.yellowBlock,
+                    y: { from: this.yellowBlock.y, to: this.redBlock.y },
+                    ease: "Linear",
+                    duration: 350,
+                })
+                this.scene.tweens.add({
+                    targets: this.redBlock,
+                    y: { from: this.redBlock.y, to: this.redBlock.y + 40 },
+                    ease: "Linear",
+                    duration: 350,
+                    onComplete: () => {
+                        this.timer3 = this.scene.time.addEvent({
+                            delay: 1400,
+                            callback: () => {
+                                this.scene.tweens.add({
+                                    targets: this.yellowBlock,
+                                    y: { from: this.yellowBlock.y, to: this.redBlock.y },
+                                    ease: "Linear",
+                                    duration: 350,
+                                })
+                            }
+                        })
+                    }
+                })
                 this.scene.tweens.add({
                     targets: this.shooter,
                     y: { from: this.shooter.y, to: this.shooter.y - 10 },
@@ -236,47 +246,64 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
                     duration: 100,
                     yoyo: true,
                 })
-                this.scene.tweens.add({
-                    targets: this.redBall,
-                    y: { from: this.redBall.y, to: this.redBlock.y },
-                    ease: "Linear",
-                    duration: 350,
-                    onComplete: () => {
-                        this.redBall.visible = false;
-                    }
-                })
-            }
-        })
-    }
-
-    showYellowBall() {
-        this.handTween()
-        this.timer3 = this.scene.time.addEvent({
-            delay: 350,
-            callback: () => {
-                this.shooter.setFrame("ball_thrower/yellow");
                 this.redBall.visible = true;
-                this.redBall.setTexture("yellow");
-                this.redBall.y = 20;
-                this.scene.tweens.add({
-                    targets: this.shooter,
-                    y: { from: this.shooter.y, to: this.shooter.y - 10 },
-                    ease: "Linear",
-                    duration: 100,
-                    yoyo: true,
-                })
                 this.scene.tweens.add({
                     targets: this.redBall,
-                    y: { from: this.redBall.y, to: this.yellowBlock.y },
+                    y: { from: this.redBall.y, to: this.redBlock.y + 40 },
                     ease: "Linear",
                     duration: 350,
                     onComplete: () => {
-                        this.yellowBlock.visible = false;
+                        this.redBlock.visible = false;
                         this.redBall.visible = false;
+                        this.timer4 = this.scene.time.addEvent({
+                            delay: 1000,
+                            callback: () => {
+                                this.handTween()
+                                this.timer5 = this.scene.time.addEvent({
+                                    delay: 350,
+                                    callback: () => {
+                                        this.shooter.setFrame("ball_thrower/yellow");
+                                        this.redBall.visible = true;
+                                        this.redBall.setTexture("yellow");
+                                        this.redBall.y = 20;
+                                        this.scene.tweens.add({
+                                            targets: this.shooter,
+                                            y: { from: this.shooter.y, to: this.shooter.y - 10 },
+                                            ease: "Linear",
+                                            duration: 100,
+                                            yoyo: true,
+                                        })
+                                        this.scene.tweens.add({
+                                            targets: this.redBall,
+                                            y: { from: this.redBall.y, to: this.yellowBlock.y + 40 },
+                                            ease: "Linear",
+                                            duration: 350,
+                                            onComplete: () => {
+                                                this.yellowBlock.visible = false;
+                                                this.redBall.visible = false;
+                                                this.timer1 = this.scene.time.addEvent({
+                                                    delay: 1000,
+                                                    callback: () => {
+                                                        this.hide();
+                                                        this.scene.intro.tutorial1.show()
+                                                    }
+                                                })
+                                            }
+                                        })
+                                    }
+                                })
+
+                            }
+                        })
                     }
                 })
             }
         })
     }
 
+    adjust() {
+        this.x = this.dimensions.gameWidth / 2;
+        this.y = this.dimensions.gameHeight / 2;
+
+    }
 }

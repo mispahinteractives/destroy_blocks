@@ -20,6 +20,16 @@ export class Tutorial2 extends Phaser.GameObjects.Container {
         this.frame.setScale(1);
         this.frameGrp.add(this.frame);
 
+        this.tutorialText = this.scene.add.text(0, 305, this.scene.text.texts[0].tuto2, {
+            fontFamily: "UberMoveMedium",
+            fontSize: 35,
+            fill: "#ffffff",
+            align: "center",
+        })
+        this.tutorialText.setOrigin(0.5);
+        this.add(this.tutorialText);
+        this.tutorialText.visible = false;
+
         this.circleArr = [];
 
         let startX = -11;
@@ -90,8 +100,17 @@ export class Tutorial2 extends Phaser.GameObjects.Container {
             ease: "Linear",
             duration: 250,
             onComplete: () => {
-                this.runTween = false;
-                this.showTutorial2();
+                this.tutorialText.visible = true;
+                this.scene.tweens.add({
+                    targets: this.tutorialText,
+                    scaleX: { from: 0, to: this.tutorialText.scaleX },
+                    ease: "Back.easeOut",
+                    duration: 250,
+                    onComplete: () => {
+                        this.runTween = false;
+                        this.showTutorial2();
+                    }
+                })
             }
         })
     }
@@ -105,6 +124,7 @@ export class Tutorial2 extends Phaser.GameObjects.Container {
             ease: "Linear",
             duration: 250,
             onComplete: () => {
+                this.tutorialText.visible = false;
                 this.runTween = false;
                 this.redBlock.y = -275;
                 this.yellowBlock.y = -315;

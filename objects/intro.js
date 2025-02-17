@@ -1,5 +1,6 @@
 import { Tutorial1 } from "./tutorial1.js";
 import { Tutorial2 } from "./tutorial2.js";
+import { Tutorial3 } from "./tutorial3.js";
 
 export class Intro extends Phaser.GameObjects.Container {
     constructor(scene, x, y, gameScene, dimensions) {
@@ -46,6 +47,9 @@ export class Intro extends Phaser.GameObjects.Container {
 
         this.tutorial2 = new Tutorial2(this.scene, 0, 0, this, );
         this.add(this.tutorial2);
+
+        this.tutorial3 = new Tutorial3(this.scene, 0, 0, this, );
+        this.add(this.tutorial3);
 
         this.playBtn.setInteractive();
         this.playBtn.on("pointerdown", (event) => {
