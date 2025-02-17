@@ -25,6 +25,8 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
             fontSize: 33,
             fill: "#ffffff",
             align: "center",
+            stroke: "#c00b00",
+            strokeThickness: 4,
         })
         this.tutorialText.setOrigin(0.5);
         this.add(this.tutorialText);
