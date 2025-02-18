@@ -133,8 +133,8 @@ export class GamePlay extends Phaser.GameObjects.Container {
         const dangerZone = -300;
         // console.log(lowestBlock, dangerZone);
         if (lowestBlock >= dangerZone) {
-            this.blockSpeed = Math.max(400, this.blockSpeed - 50);
-            this.ballSpeed = Math.max(400, this.ballSpeed - 50);
+            this.blockSpeed = Math.max(400, this.blockSpeed - 20);
+            this.ballSpeed = Math.max(400, this.ballSpeed - 20);
             this.emitterBallSpeed = Math.max(5, this.emitterBallSpeed - 10);
 
             // console.log(`Speed Increased! Block Speed: ${this.blockSpeed}, Ball Speed: ${this.ballSpeed}`);
@@ -223,7 +223,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
 
             circle.destroy();
             block.destroy();
-            this.scene.sound.play('break', { volume: .8 })
+            this.scene.sound.play('break2', { volume: .8 })
 
             this.score++;
             this.scoreText.setText(this.score);

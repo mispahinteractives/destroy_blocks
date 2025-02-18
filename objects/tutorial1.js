@@ -90,7 +90,9 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
         if (this.timer5) {
             this.scene.time.removeEvent(this.timer5);
         }
-        // this.stopTween();
+        if (this.timer6) {
+            this.scene.time.removeEvent(this.timer6);
+        }
     }
 
     stopTween() {
@@ -198,7 +200,13 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
                     delay: 1000,
                     callback: () => {
                         this.hand.visible = false;
-                        this.scene.intro.changeTutorial(1)
+                        this.timer6 = this.scene.time.addEvent({
+                            delay: 1500,
+                            callback: () => {
+                                this.scene.intro.changeTutorial(1)
+                            }
+                        })
+
                     }
                 })
             }

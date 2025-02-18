@@ -1,4 +1,3 @@
-
 export class CountDown extends Phaser.GameObjects.Container {
     constructor(scene, x, y, gameScene, dimensions) {
 
@@ -29,32 +28,15 @@ export class CountDown extends Phaser.GameObjects.Container {
         this.add(this.text)
 
         this.visible = false;
+
+        // this.updateCount()
     }
 
-    updateCount(){
+    updateCount() {
         this.visible = true;
         // this.sounds("countdown").play()
-        this.scene.tweens.add({
-            targets: this.graphics,
-            scale: {from: 0 , to: this.graphics.scaleX},
-            duration: 300,
-            ease: 'Power2',
-            onComplete: () => {
-                
-               
-            }
-        });
-        
-        this.scene.tweens.add({
-            targets: this.text,
-            scale: {from: 0 , to: this.text.scaleX},
-            duration: 300,
-            ease: 'Power2',
-            onComplete: () => {
-                
-                
-            }
-        });
+        this.scene.tweens.add({ targets: this.graphics, scale: { from: 0, to: this.graphics.scaleX }, duration: 300, ease: 'Power2', })
+        this.scene.tweens.add({ targets: this.text, scale: { from: 0, to: this.text.scaleX }, duration: 300, ease: 'Power2', });
         this.scene.sound.play('countdown', { volume: 1 })
         this.scene.time.addEvent({
             delay: 1000,
@@ -62,34 +44,15 @@ export class CountDown extends Phaser.GameObjects.Container {
             callback: () => {
                 this.countdownValue--;
                 this.text.setText(this.countdownValue);
-                
-                this.scene.tweens.add({
-                    targets: this.graphics,
-                    scale: {from: 0 , to: this.graphics.scaleX},
-                    duration: 300,
-                    ease: 'Power2',
-                    onComplete: () => {
-                        
-                       
-                    }
-                });
-                
-                this.scene.tweens.add({
-                    targets: this.text,
-                    scale: {from: 0 , to: this.text.scaleX},
-                    duration: 300,
-                    ease: 'Power2',
-                    onComplete: () => {
-                        
-                        
-                    }
-                });
-                if(this.countdownValue <= 0){
-                    this.visible= false;
-                this.scene.gamePlay.startGame();
-                }else{
-        this.scene.sound.play('countdown', { volume: 1 })
-
+                this.scene.tweens.add({ targets: this.graphics, scale: { from: 0, to: this.graphics.scaleX }, duration: 300, ease: 'Power2', });
+                this.scene.tweens.add({ targets: this.text, scale: { from: 0, to: this.text.scaleX }, duration: 300, ease: 'Power2', });
+                this.scene.sound.play('countdown', { volume: 1 })
+                if (this.countdownValue <= 0) {
+                    this.text.setText("Go");
+                    setTimeout(() => {
+                        this.visible = false;
+                        this.scene.gamePlay.startGame();
+                    }, 1000);
                 }
             }
         });
