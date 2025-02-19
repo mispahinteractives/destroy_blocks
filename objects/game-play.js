@@ -223,7 +223,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
 
             circle.destroy();
             block.destroy();
-            this.scene.sound.play('break2', { volume: .8 })
+            this.scene.sound.play('break', { volume: 3 })
 
             this.score++;
             this.scoreText.setText(this.score);

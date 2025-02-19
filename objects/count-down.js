@@ -37,7 +37,7 @@ export class CountDown extends Phaser.GameObjects.Container {
         // this.sounds("countdown").play()
         this.scene.tweens.add({ targets: this.graphics, scale: { from: 0, to: this.graphics.scaleX }, duration: 300, ease: 'Power2', })
         this.scene.tweens.add({ targets: this.text, scale: { from: 0, to: this.text.scaleX }, duration: 300, ease: 'Power2', });
-        this.scene.sound.play('countdown', { volume: 1 })
+        this.scene.sound.play('countdown', { volume: .5 })
         this.scene.time.addEvent({
             delay: 1000,
             repeat: 2,
@@ -46,7 +46,7 @@ export class CountDown extends Phaser.GameObjects.Container {
                 this.text.setText(this.countdownValue);
                 this.scene.tweens.add({ targets: this.graphics, scale: { from: 0, to: this.graphics.scaleX }, duration: 300, ease: 'Power2', });
                 this.scene.tweens.add({ targets: this.text, scale: { from: 0, to: this.text.scaleX }, duration: 300, ease: 'Power2', });
-                this.scene.sound.play('countdown', { volume: 1 })
+                this.scene.sound.play('countdown', { volume: .5 })
                 if (this.countdownValue <= 0) {
                     this.text.setText("Go");
                     setTimeout(() => {
