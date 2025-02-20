@@ -201,7 +201,7 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
                     callback: () => {
                         this.hand.visible = false;
                         this.timer6 = this.scene.time.addEvent({
-                            delay: 1500,
+                            delay: 2500,
                             callback: () => {
                                 this.scene.intro.changeTutorial(1)
                             }

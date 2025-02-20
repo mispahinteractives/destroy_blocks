@@ -258,7 +258,7 @@ export class Tutorial2 extends Phaser.GameObjects.Container {
                                                 this.yellowBlock.visible = false;
                                                 this.redBall.visible = false;
                                                 this.timer1 = this.scene.time.addEvent({
-                                                    delay: 2000,
+                                                    delay: 3000,
                                                     callback: () => {
                                                         this.scene.intro.changeTutorial(1)
                                                     }
