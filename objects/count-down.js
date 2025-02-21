@@ -53,8 +53,8 @@ export class CountDown extends Phaser.GameObjects.Container {
                         this.visible = false;
                         setTimeout(() => {
                             this.scene.gamePlay.startGame();
-                        }, 1500);
-                    }, 1000);
+                        }, 1000);
+                    }, 1500);
                 }
             }
         });
