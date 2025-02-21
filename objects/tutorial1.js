@@ -67,10 +67,20 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
         this.add(this.hand);
         this.hand.alpha = 0;
 
-        this.visible = false;
+        // this.visible = false;
 
         setTimeout(() => {
-            this.show();
+            this.tutorialText.visible = true;
+            this.scene.tweens.add({
+                targets: this.tutorialText,
+                scaleX: { from: 0, to: this.tutorialText.scaleX },
+                ease: "Back.easeOut",
+                duration: 250,
+                onComplete: () => {
+                    this.runTween = false;
+                    this.showTutorial();
+                }
+            });
         }, 20);
     }
 
@@ -111,7 +121,7 @@ export class Tutorial1 extends Phaser.GameObjects.Container {
         this.visible = true;
         this.runTween = true;
         this.timer5 = this.scene.time.addEvent({
-            delay: 500,
+            delay: 300,
             callback: () => {
                 this.tutorialText.visible = true;
                 this.scene.tweens.add({

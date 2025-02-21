@@ -98,7 +98,7 @@ export class Tutorial3 extends Phaser.GameObjects.Container {
         // this.frameGrp.alpha = 0;
         this.runTween = true;
         this.timer3 = this.scene.time.addEvent({
-            delay: 500,
+            delay: 250,
             callback: () => {
                 this.tutorialText.visible = true;
                 this.scene.tweens.add({

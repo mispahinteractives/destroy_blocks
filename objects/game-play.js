@@ -192,7 +192,7 @@ export class GamePlay extends Phaser.GameObjects.Container {
     }
 
     checkCollisions(circle1) {
-        if (this.blocksArr.length === 0) return;
+        // if (this.blocksArr.length === 0) return;
         this.blocksArr.forEach((block) => {
             let rect = new Phaser.Geom.Rectangle(block.x, block.y, block.width, block.height);
             let circle = new Phaser.Geom.Circle(circle1.x, circle1.y, circle1.radius);

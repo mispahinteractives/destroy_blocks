@@ -86,13 +86,14 @@ export class Intro extends Phaser.GameObjects.Container {
         this.scene.tweens.add({
             targets: nextTutorial,
             x: 0,
-            ease: "Cubic.easeIn",
+            ease: "Linear",
             duration: 300
         });
 
         this.level = nextLevel;
         this.leftArrow.setAlpha(this.level === 0 ? 0.5 : 1);
         this.rightArrow.setAlpha(this.level === 2 ? 0.5 : 1);
+
     }
 
     show() {
