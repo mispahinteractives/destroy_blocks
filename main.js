@@ -20,13 +20,6 @@ const config = {
         createContainer: true
     },
     scene: [Boot, Preload, GameScene],
-    physics: {
-        default: 'matter',
-        matter: {
-            debug: false,
-        }
-    },
-
 }
 
 const game = new Phaser.Game(config)
